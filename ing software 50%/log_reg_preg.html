@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registrar Usuario Wayne Corp</title>
+  <link rel="stylesheet" href="./style/log_reg_preg_style.css" />
+  <style>
+    /* Estilo para que el mensaje de error se vea correctamente */
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      text-align: left;
+      width: 300px; 
+      min-height: 20px;
+    }
+    
+    /* Estilo para el mensaje de éxito */
+    .success-message-box {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      /* Inicialmente oculto */
+      display: none; 
+    }
+  </style>
+</head>
+<body>
+  <div class="barra_decorativa_azul_1"></div>
+  <div class="barra_decorativa_azul_2"></div>
+  <div class="barra_decorativa_negra_1"></div>
+  <div class="barra_decorativa_negra_2"></div>
+
+  <div class="container">
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+    <h1 class="titulo">Preguntas de Seguridad</h1>
+
+    <form id="seguridad-form" action="log.html">
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="CPregunta_1">Pregunta 1</label>
+          <input type="text" id="CPregunta_1" name="CPregunta_1" />
+          <div class="error-message" id="error-CPregunta_1"></div>
+        </div>
+        <div class="input-group">
+          <label for="CRespuesta_1">Respuesta 1</label>
+          <input type="text" id="CRespuesta_1" name="CRespuesta_1" />
+          <div class="error-message" id="error-CRespuesta_1"></div>
+        </div>
+      </div>
+
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="CPregunta_2">Pregunta 2</label>
+          <input type="text" id="CPregunta_2" name="CPregunta_2" />
+          <div class="error-message" id="error-CPregunta_2"></div>
+        </div>
+        <div class="input-group">
+          <label for="CRespuesta_2">Respuesta 2</label>
+          <input type="text" id="CRespuesta_2" name="CRespuesta_2" />
+          <div class="error-message" id="error-CRespuesta_2"></div>
+        </div>
+      </div>
+
+      <button type="submit" class="arrow-btn">&#8594;</button>
+
+      <div id="success-message" class="success-message-box">
+        ✅ Usuario creado con éxito. Redirigiendo al login...
+      </div>
+      
+    </form>
+  </div>
+  
+  <script src="log_reg_preg_js.js"></script>
+</body>
+</html>

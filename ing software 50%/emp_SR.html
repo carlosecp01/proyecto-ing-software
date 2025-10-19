@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Empresas - Wayne Corp</title>
+  <link rel="stylesheet" href="./style/emp_SR_style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" id="menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <nav id="sidebar">
+    <ul>
+      <li><a href="ini_SR.html">Inicio</a></li>
+      <li><a href="emp_SR.html">Empresas</a></li>
+      <li><a href="cat_SR.html">Catalogo</a></li>
+      <li><a href="ayu_SR.html">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <h1 class="header">Empresas</h1>
+
+  <div class="company-grid">
+    
+    <div class="company-card" 
+         data-name="SC Johnson" 
+         data-description="SC Johnson es un fabricante global de productos de limpieza para el hogar y otros productos químicos para el consumo, con marcas reconocidas mundialmente."
+         data-logo="./img/sc_johnson_new_logo.png"> 
+      <div class="company-logo-container">
+        <img src="./img/sc_johnson_logo.png" alt="Logo SC Johnson" class="company-logo" />
+        <p class="logo-placeholder">SCJ</p> 
+      </div>
+      <p class="company-name">SC Johnson</p>
+    </div>
+
+    <div class="company-card" 
+         data-name="Quala" 
+         data-description="Quala es una empresa multinacional de consumo masivo con sede en Colombia, conocida por una amplia gama de productos alimenticios y de cuidado personal."
+         data-logo="./img/quala_logo_modal.png"> 
+      <div class="company-logo-container">
+        <img src="./img/quala_logo.png" alt="Logo Quala" class="company-logo" />
+        <p class="logo-placeholder">Q</p> 
+      </div>
+      <p class="company-name">Quala</p>
+    </div>
+    
+    <div class="company-card" 
+         data-name="3M" 
+         data-description="3M es una empresa de tecnología diversificada que opera en varios sectores, incluyendo productos industriales, salud, seguridad y consumo."
+         data-logo="./img/3m_logo_modal.png">
+      <div class="company-logo-container">
+        <img src="./img/3m_logo.png" alt="Logo 3M" class="company-logo" />
+        <p class="logo-placeholder">3M</p> 
+      </div>
+      <p class="company-name">3M</p>
+    </div>
+    
+    <div class="company-card" 
+         data-name="Familia" 
+         data-description="Familia es una marca líder en productos de higiene y cuidado personal, ofreciendo soluciones para toda la familia con un enfoque en la calidad y el bienestar."
+         data-logo="./img/familia_logo_modal.png">
+      <div class="company-logo-container">
+        <img src="./img/familia_logo.png" alt="Logo Familia" class="company-logo" />
+        <p class="logo-placeholder">F</p> 
+      </div>
+      <p class="company-name">Familia</p>
+    </div>
+    
+  </div>
+  
+  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+
+  <a href="log.html">
+    <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
+  </a>
+
+  <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
+
+  <footer>
+    <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
+  </footer>
+
+  <template id="company-detail-template">
+    <div class="comp-detail-layout">
+      <div class="comp-info">
+        <h2 id="comp-name">Nombre de la Empresa</h2>
+        <p id="comp-description">// descripcion</p>
+        <ul>
+          <li>*</li>
+          <li>*</li>
+          <li>*</li>
+        </ul>
+        <p>//</p>
+        <a href="#" class="view-products-button">Ver Productos</a>
+      </div>
+      <div class="comp-logo-display">
+        <img id="comp-logo" src="" alt="Logo de Empresa" class="modal-company-logo"/>
+        <p class="modal-logo-text"></p>
+      </div>
+    </div>
+  </template>
+
+  <div id="company-prod-container" class="prod-container">
+    <div class="prod-content">
+      <span class="close-button">&times;</span>
+      <div id="modal-content-container">
+      </div>
+    </div>
+  </div>
+
+  <script src="emp_js.js"></script>
+
+</body>
+</html>

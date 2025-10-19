@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recuperar Contraseña Wayne Corp</title>
+  <link rel="stylesheet" href="./style/log_rec_cont_style.css" />
+  <style>
+    /* Estilo para que el mensaje de error se vea correctamente */
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      width: 300px; 
+      min-height: 20px;
+      text-align: left;
+    }
+    
+    /* Ajuste en el input-group para apilar label, input, y error */
+    .input-group-row .input-group {
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 300px;
+    }
+
+    .input-group-row .input-group label {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+
+    .input-group-row .input-group input {
+      width: 300px; 
+    }
+    
+    /* Estilo para el mensaje de éxito (SOLO AQUÍ) */
+    .success-message-box {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      width: 500px; 
+      margin-left: auto;
+      margin-right: auto;
+      display: none; 
+    }
+  </style>
+</head>
+<body>
+  <div class="barra_decorativa_azul_1"></div>
+  <div class="barra_decorativa_azul_2"></div>
+  <div class="barra_decorativa_negra_1"></div>
+  <div class="barra_decorativa_negra_2"></div>
+
+  <div class="container">
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+    <h1 class="titulo">Ingresar Contraseña</h1>
+
+    <form id="recuperar-form" action="log.html">
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="Rcontrasena">Contraseña</label>
+          <input type="password" id="Rcontrasena" name="Rcontrasena" />
+          <div class="error-message" id="error-Rcontrasena"></div> 
+        </div>
+        <div class="input-group">
+          <label for="Rconfirmar_contrasena">Confirmar contraseña</label>
+          <input type="password" id="Rconfirmar_contrasena" name="Rconfirmar_contrasena" />
+          <div class="error-message" id="error-Rconfirmar_contrasena"></div>
+        </div>
+      </div>
+
+      <button type="submit" class="arrow-btn">&#8594;</button>
+
+      <div id="success-message" class="success-message-box">
+        ✅ **Contraseña actualizada con éxito**. Redirigiendo al login...
+      </div>
+      
+    </form>
+  </div>
+  
+  <script src="log_rec_cont_js.js"></script>
+</body>
+</html>

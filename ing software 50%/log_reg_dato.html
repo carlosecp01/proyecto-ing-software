@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registrar Usuario Wayne Corp</title>
+  <link rel="stylesheet" href="./style/log_reg_dato_style.css" />
+  <style>
+    /* Estilo para que el mensaje de error se vea correctamente */
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 2px;
+      margin-bottom: 5px; 
+      text-align: left;
+      width: 300px; 
+      min-height: 20px;
+    }
+
+    /* ------------------------------------------------------------------- */
+    /* CÓDIGO CLAVE PARA ALINEACIÓN CON FLEXBOX Y USO DE !IMPORTANT */
+    /* ------------------------------------------------------------------- */
+    .cedula-input-container {
+      /* Fija el ancho total a 300px y activa flexbox */
+      display: flex !important; 
+      align-items: center !important;
+      width: 300px !important; 
+    }
+    
+    .cedula-input-container select {
+        /* Mantenemos el select en un ancho funcional (70px) para que no se corte, como solicitaste no modificar su apariencia. */
+        width: 70px !important; 
+        margin-right: 5px !important; /* Margen de separación */
+        flex-shrink: 0 !important; /* Evita que se encoja */
+        box-sizing: border-box !important; /* Forzar el box-sizing */
+        /* Padding ajustado para altura consistente */
+        padding: 4px 5px !important; 
+    }
+    
+    .cedula-input-container input {
+        /* Hace que el input de números tome todo el espacio restante, garantizando que el total sea 300px */
+        flex-grow: 1 !important; 
+        /* Fija el ancho base en cero para que flex-grow funcione correctamente */
+        width: 0 !important; 
+        box-sizing: border-box !important; /* Forzar el box-sizing */
+    }
+
+    /* Asegura que el error de cédula aparezca debajo del grupo de input/select */
+    #error-cedula {
+        margin-left: 0; 
+    }
+    /* ------------------------------------------------------------------- */
+
+  </style>
+</head>
+<body>
+  <div class="barra_decorativa_azul_1"></div>
+  <div class="barra_decorativa_azul_2"></div>
+  <div class="barra_decorativa_negra_1"></div>
+  <div class="barra_decorativa_negra_2"></div>
+
+  <div class="container">
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+    <h1 class="titulo">Registrar usuario</h1>
+
+    <form action="log_reg_cont.html" method="POST">
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" />
+          <div class="error-message" id="error-nombre"></div>
+        </div>
+        <div class="input-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" name="apellido" />
+          <div class="error-message" id="error-apellido"></div>
+        </div>
+      </div>
+
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="fecha_nacimiento">Fecha de nacimiento</label>
+          <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" />
+          <div class="error-message" id="error-fecha_nacimiento"></div>
+        </div>
+        <div class="input-group">
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" name="telefono" maxlength="11" />
+          <div class="error-message" id="error-telefono"></div>
+        </div>
+      </div>
+
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="correo">Correo</label>
+          <input type="text" id="correo" name="correo" />
+          <div class="error-message" id="error-correo"></div>
+        </div>
+        <div class="input-group">
+          <label for="cedula">Cédula</label>
+          <div class="cedula-input-container">
+            <select id="tipo_cedula" name="tipo_cedula">
+              <option value="V">V</option>
+              <option value="E">E</option>
+              <option value="J">J</option>
+            </select>
+            <input type="text" id="cedula" name="cedula" maxlength="8" />
+          </div>
+          <div class="error-message" id="error-cedula"></div>
+        </div>
+      </div>
+
+      <button type="submit" class="arrow-btn">&#8594;</button>
+    </form>
+  </div>
+  
+  <script src="log_reg_dato_js.js"></script>
+</body>
+</html>

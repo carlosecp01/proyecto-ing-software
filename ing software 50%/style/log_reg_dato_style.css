@@ -1,0 +1,167 @@
+html, body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden; 
+  background: #fff;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+/* Líneas decorativas (sin cambios) */
+.barra_decorativa_azul_1 {
+  position: absolute;
+  top: 0;
+  left: -22px;
+  width: 40%;
+  height: 28px;
+  background: #4562df;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+.barra_decorativa_azul_2 {
+  position: absolute;
+  top: 38px;
+  left: -30px;
+  width: 60%;
+  height: 28px;
+  background: #4562df;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+.barra_decorativa_negra_1 {
+  position: absolute;
+  bottom: 0;
+  right: -22px;
+  width: 40%;
+  height: 28px;
+  background: #222;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+.barra_decorativa_negra_2 {
+  position: absolute;
+  bottom: 38px;
+  right: -30px;
+  width: 60%;
+  height: 28px;
+  background: #222;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+/* Contenedor principal del formulario (Posición corregida) */
+.container {
+  position: absolute;
+  top: 20px; 
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 auto;
+  width: 720px; 
+  background: transparent;
+  padding: 0;
+  z-index: 2;
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 5px; 
+  margin-top: 0;
+}
+
+.titulo {
+  font-size: 28px;
+  color: #222;
+  margin-bottom: 15px; 
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 100px;
+  margin-top: 0;
+}
+
+.input-group-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 5px; 
+  flex-wrap: nowrap;
+}
+
+.input-group-row .input-group {
+  flex: 1;
+  max-width: 300px;
+  /* LAYOUT CORREGIDO: Etiqueta encima del Input */
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+}
+
+.input-group-row .input-group label {
+  font-size: 20px;
+  color: #222;
+  margin-bottom: 2px; 
+  font-weight: bold;
+  /* Etiquetas sin restricción de ancho */
+}
+
+/* Estilo general para todos los INPUTS (con 300px ancho total) */
+.input-group-row .input-group input {
+  height: 40px; 
+  width: 300px; /* Ancho base para los campos normales */
+  font-size: 22px;
+  padding: 4px 10px;
+  border: 2px solid #222;
+  border-radius: 3px;
+  outline: none;
+  box-sizing: border-box; 
+}
+
+/* Estilo general para todos los SELECTS (sin ancho fijo para la cédula) */
+.input-group-row .input-group select {
+  height: 40px; 
+  font-size: 22px;
+  padding: 4px 10px; 
+  border: 2px solid #222;
+  border-radius: 3px;
+  outline: none;
+  box-sizing: border-box; 
+}
+
+/* Ajuste visual para el input de fecha */
+.input-group-row .input-group input[type="date"] {
+    height: 38px; 
+    padding: 0 10px;
+}
+
+/* Estilo del botón de continuar */
+.arrow-btn {
+  background: #4562df;
+  border: none;
+  color: white;
+  font-size: 32px;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px; 
+  margin-left: 600px; 
+}
+
+.arrow-btn:hover {
+  background: #234ac9;
+}

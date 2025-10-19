@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transacciones</title>
+  <link rel="stylesheet" href="./style/tra_log_style.css" />
+</head>
+<body>
+
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" id="menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <nav id="sidebar">
+    <ul>
+      <li><a href="ini_log.html">Inicio</a></li>
+      <li><a href="emp_log.html">Empresas</a></li>
+      <li><a href="tra_con_log.html">Transacciones</a></li>
+      <li><a href="cat_log.html">Catalogo</a></li>
+      <li><a href="ayu_log.html">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <h1 class="header">Transacciones</h1>
+  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+
+  <a href="login.html">
+    <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
+  </a>
+
+  <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
+
+  <div class="form-container">
+    <form action="#" method="POST">
+      <h2>Registro de Transferencia</h2>
+      
+      <div class="form-group">
+        <label for="id_doc">Cédula o RIF:</label>
+        <input type="text" id="id_doc" name="id_doc" required>
+      </div>
+
+      <div class="form-group">
+        <label for="fecha_emision">Fecha de Emisión:</label>
+        <input type="date" id="fecha_emision" name="fecha_emision" required>
+      </div>
+
+      <div class="form-group">
+        <label for="referencia">Referencia:</label>
+        <input type="text" id="referencia" name="referencia" required>
+      </div>
+
+      <div class="form-group">
+        <label for="monto_ref">Monto de Referencia:</label>
+        <input type="number" id="monto_ref" name="monto_ref" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <label for="monto_transf">Monto Transferido:</label>
+        <input type="number" id="monto_transf" name="monto_transf" step="0.01" required>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="certificacion" name="certificacion" required>
+        <label for="certificacion">Certifico que el monto que transferí es igual al monto de referencia.</label>
+      </div>
+
+      <a href="ini.html"> 
+      <button type="submit" class="send-btn">Enviar</button>
+      </a>
+    </form>
+  </div>
+  <footer>
+    <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Wayne Corp</title>
+  <link rel="stylesheet" href="./style/log_style.css" />
+  <style>
+    /* El input comienza a 152px (140px del label + 12px de margen). Alineamos el error ahí. */
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: -15px; /* Reduce el espacio con el input de arriba (input-group tiene margin-bottom: 20px) */
+      margin-bottom: 10px; /* Espacio antes del siguiente elemento */
+      margin-left: 152px; /* ALINEACIÓN CON EL INPUT */
+      text-align: left;
+      min-height: 20px;
+      width: 300px;
+    }
+    
+    /* Corrección para centrar el botón de recuperar contraseña con el input */
+    .recuperar-contrasena {
+        margin-bottom: 25px; 
+        margin-left: 152px; /* ALINEACIÓN CON EL INICIO DEL INPUT */
+        text-align: left; /* Asegura que el texto comience a la izquierda */
+        width: 300px; /* Mismo ancho del input */
+    }
+
+    /* Pequeño ajuste para que el botón de envío se vea bien */
+    form button.arrow-btn {
+        margin-top: 40px; 
+        margin-left: 500px; 
+    }
+
+    /* Asegura que el div del error esté fuera del flex de .input-group */
+    .input-group {
+        margin-bottom: 20px; /* Espacio original de login_style.css */
+    }
+  </style>
+</head>
+<body>
+  <div class="barra_decorativa_azul_1"></div>
+  <div class="barra_decorativa_azul_2"></div>
+  <div class="barra_decorativa_negra_1"></div>
+  <div class="barra_decorativa_negra_2"></div>
+
+  <div class="help-btn">
+    <div class="circle">
+      <span class="question">?</span>
+    </div>
+    <a href="#">Ayuda</a>
+  </div>
+
+  <div class="container">
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+    <form action="ini_log.html" method="POST">
+      <div class="input-group">
+        <label for="usuario">Correo</label>
+        <input type="text" id="usuario" name="usuario" />
+      </div>
+      <div class="error-message" id="error-usuario"></div>
+      
+      <div class="input-group">
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" />
+      </div>
+      <div class="error-message" id="error-contrasena"></div>
+
+      <div class="recuperar-contrasena">
+        <a href="log_rec_corr.html" style="color: blue; text-decoration: underline; font-size: 15px;">¿Olvidaste tu contraseña?</a>
+      </div>
+      <button type="submit" class="arrow-btn">&#8594;</button>
+    </form>
+    
+    <div class="registrar-link">
+      <p>¿No tienes cuenta? <a href="log_reg_dato.html">Regístrate</a></p>
+    </div>
+
+  </div>
+
+  <script src="log_js.js"></script>
+</body>
+</html>

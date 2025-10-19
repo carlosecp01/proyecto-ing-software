@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registrar Usuario Wayne Corp</title>
+  <link rel="stylesheet" href="./style/log_rec_preg_style.css" />
+  <style>
+    /* Estilo para que el mensaje de error se vea correctamente */
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      text-align: left;
+      /* Asegura que el mensaje de error tenga el mismo ancho que el input */
+      width: 300px; 
+      min-height: 20px;
+    }
+    /* Ajuste en el input-group para apilar label, input, y error */
+    .input-group-row .input-group {
+      /* Cambia la dirección de flexbox a columna (vertical) */
+      flex-direction: column; 
+      align-items: flex-start;
+      /* Centra los grupos de input dentro del formulario si el contenedor es estrecho */
+      margin: 0 auto; 
+    }
+    /* Ajuste de márgenes para que la etiqueta quede pegada al input */
+    .input-group-row .input-group label {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+    /* Asegura que el input tenga el ancho correcto dentro de la columna */
+    .input-group-row .input-group input {
+        width: 300px;
+    }
+    /* Ajuste para centrar las preguntas/respuestas ya que ahora son de una sola columna */
+    form {
+        align-items: center; /* Centra el formulario completo */
+        margin-right: 0; /* Remueve el margen derecho que desplaza el formulario */
+    }
+    /* Ajuste para centrar la fila de inputs/labels */
+    .input-group-row {
+        justify-content: center; /* Centra el contenido de la fila */
+        gap: 0; /* Elimina el espacio entre grupos si hubiese dos */
+        /* Asegura el ancho del input-group-row para la alineación si es necesario */
+        width: 300px; 
+    }
+  </style>
+</head>
+<body>
+  <div class="barra_decorativa_azul_1"></div>
+  <div class="barra_decorativa_azul_2"></div>
+  <div class="barra_decorativa_negra_1"></div>
+  <div class="barra_decorativa_negra_2"></div>
+
+  <div class="container">
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+    <h1 class="titulo">Preguntas de Seguridad</h1>
+
+    <form action="log_rec_cont.html">
+      
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="CRRespuesta_1">Nombre de perro</label>
+          <input type="text" id="CRRespuesta_1" name="CRRespuesta_1" />
+          <div class="error-message" id="error-CRRespuesta_1"></div>
+        </div>
+      </div>
+
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="CRRespuesta_2">Color Favorito</label>
+          <input type="text" id="CRRespuesta_2" name="CRRespuesta_2" />
+          <div class="error-message" id="error-CRRespuesta_2"></div>
+        </div>
+      </div>
+
+      
+
+      <button type="submit" class="arrow-btn">&#8594;</button>
+    </form>
+  </div>
+  <script src="log_rec_preg_js.js"></script>
+</body>
+</html>

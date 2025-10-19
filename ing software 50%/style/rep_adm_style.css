@@ -1,0 +1,147 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+body > *:not(footer) {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+/* Estilo menú lateral */
+#sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: #666;
+  color: white;
+  transition: 0.3s;
+  padding-top: 2cm;
+  box-sizing: border-box;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  padding: 15px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+#sidebar ul li a {
+  color: white; /* Texto blanco */
+  text-decoration: none; /* Quita la línea de enlace (subrayado) */
+  display: block; /* Hace que el enlace ocupe todo el espacio del <li> */
+}
+
+#sidebar ul li:hover {
+  background-color: #4562df;
+  cursor: pointer; /* cursor de puntero al pasar el mouse */
+  transition: background-color 0.3s ease;
+}
+
+#sidebar ul li:hover a {
+  color: white; 
+}
+
+/* Checkbox para controlar el menú */
+#menu-toggle {
+  display: none;
+}
+
+/* botón hamburguesa */
+#menu-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  width: 30px;
+  height: 22px;
+  z-index: 2;
+}
+
+#menu-btn span {
+  display: block;
+  height: 4px;
+  background: black;
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+/* Al activar el checkbox, desplegar menú desplazando el sidebar visible */
+#menu-toggle:checked ~ #sidebar {
+  left: 0;
+}
+
+/* Fondo oscuro cuando está el menú abierto */
+#menu-toggle:checked ~ #overlay {
+  display: block;
+}
+
+/* Capa para oscurecer fondo y cerrar menú si se clickea */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+/* Estilo titulo centrado */
+.header {
+  text-align: center;
+  padding: 50px 0;
+  font-size: 24px;
+}
+
+/* Logo centrado */
+.logo {
+  display: block;
+  margin: 0 auto 40px auto;
+  width: 400px;
+  opacity: 0.15;
+}
+
+/* Icono de correo arriba a la derecha */
+.mail-icon {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Icono de correo arriba a la derecha */
+.user-icon {
+  position: fixed;
+  top: 15px;
+  right: 80px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Footer */
+footer {
+  background-color: #4562df;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}

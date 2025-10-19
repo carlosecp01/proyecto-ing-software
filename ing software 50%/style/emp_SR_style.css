@@ -1,0 +1,411 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+body > *:not(footer) {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+/* Estilo menú lateral */
+#sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: #666;
+  color: white;
+  transition: 0.3s;
+  padding-top: 2cm;
+  box-sizing: border-box;
+  z-index: 3; 
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  padding: 15px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+#sidebar ul li a {
+  color: white; 
+  text-decoration: none; 
+  display: block; 
+}
+
+#sidebar ul li:hover {
+  background-color: #4562df;
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+#sidebar ul li:hover a {
+  color: white; 
+}
+
+/* Checkbox para controlar el menú */
+#menu-toggle {
+  display: none;
+}
+
+/* botón hamburguesa */
+#menu-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  width: 30px;
+  height: 22px;
+  z-index: 4; 
+}
+
+#menu-btn span {
+  display: block;
+  height: 4px;
+  background: black;
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+/* Al activar el checkbox, desplegar menú desplazando el sidebar visible */
+#menu-toggle:checked ~ #sidebar {
+  left: 0;
+}
+
+/* Fondo oscuro cuando está el menú abierto */
+#menu-toggle:checked ~ #overlay {
+  display: block;
+}
+
+/* Capa para oscurecer fondo y cerrar menú si se clickea */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+/* Estilo titulo centrado */
+.header {
+  text-align: center;
+  padding: 50px 0 60px 0; 
+  font-size: 24px;
+}
+
+/* --- ESTILOS DE LA CUADRÍCULA DE EMPRESAS --- */
+
+.company-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 30px; 
+  padding: 20px 0;
+  margin-bottom: 300px; 
+}
+
+.company-card {
+  width: 150px; 
+  padding: 15px;
+  border: 1px solid #ccc; 
+  border-radius: 20px; 
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 2; 
+  position: relative;
+}
+
+.company-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.company-logo-container {
+  width: 100%;
+  height: 100px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #f0f0f0; 
+}
+
+.company-logo {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.logo-placeholder {
+    /* CORRECCIÓN APLICADA AQUÍ: Se oculta por defecto */
+    display: none; 
+    
+    font-size: 30px;
+    font-weight: bold;
+    color: #666;
+    margin: 0;
+    line-height: 100px; 
+}
+
+.company-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Logo de fondo */
+.logo {
+  display: block;
+  position: absolute; 
+  top: 70%; 
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  
+  margin: 0; 
+  width: 400px;
+  opacity: 0.15;
+  
+  z-index: 0; 
+  pointer-events: none; 
+}
+
+/* Icono de correo arriba a la derecha */
+.mail-icon {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Icono de usuario arriba a la derecha */
+.user-icon {
+  position: fixed;
+  top: 15px;
+  right: 80px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Footer */
+footer {
+  background-color: #4562df;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  z-index: 10; 
+  position: relative; 
+}
+
+/* --- ESTILOS DEL CONTENEDOR DE PRODUCTO (Genérico para modales) --- */
+
+/* Contenedor principal del modal (oscurece el fondo) */
+.prod-container {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 100; /* Asegura que esté encima de todo */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); 
+  justify-content: center; 
+  align-items: center; 
+}
+
+/* Contenido interno del modal (el recuadro blanco) */
+.prod-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 90%; 
+  max-width: 650px; 
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex; 
+  flex-direction: column;
+}
+
+/* Botón de cierre (la 'x') */
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 101; 
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+}
+
+/* --- Estilos para el DETALLE DE LA EMPRESA (Contenido inyectado en el modal) --- */
+.comp-detail-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start; 
+  justify-content: space-between;
+  text-align: left; 
+}
+
+.comp-info {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px; 
+}
+
+.comp-info h2 {
+    font-size: 28px;
+    margin: 0 0 10px 0;
+    color: #c00; 
+    font-weight: bold;
+}
+
+.comp-info p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.comp-info ul {
+    list-style-type: disc; 
+    margin-left: 20px;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.comp-info li {
+    margin-bottom: 5px;
+}
+
+
+.comp-logo-display {
+  flex-shrink: 0; 
+  width: 40%; 
+  max-width: 250px; 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-company-logo {
+  max-width: 100%;
+  max-height: 150px; 
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.modal-logo-text {
+    font-family: 'Times New Roman', serif; 
+    font-size: 32px;
+    font-weight: bold;
+    color: #c00; 
+    margin-top: 5px;
+}
+
+.view-products-button {
+  background-color: #4562df;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px; 
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none; 
+  transition: background-color 0.3s;
+  align-self: flex-start; 
+  min-width: 150px;
+}
+
+.view-products-button:hover {
+  background-color: #334dcb;
+}
+
+/* Media query para pantallas pequeñas (ajuste del modal de empresa) */
+@media (max-width: 600px) {
+  .company-card {
+    width: 120px;
+  }
+  
+  .comp-detail-layout {
+    flex-direction: column; 
+    align-items: center;
+  }
+  
+  .comp-logo-display {
+    width: 100%;
+    order: -1; 
+    margin-bottom: 20px;
+  }
+
+  .comp-info {
+    text-align: center; 
+    padding-right: 0;
+  }
+
+  .comp-info h2 {
+      font-size: 24px;
+  }
+
+  .view-products-button {
+    align-self: center; 
+  }
+
+  .prod-content { 
+    padding: 20px;
+  }
+}
+
+/* Ocultar las plantillas en HTML para que no se muestren por defecto */
+template {
+  display: none; 
+}

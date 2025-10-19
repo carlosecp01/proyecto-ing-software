@@ -1,0 +1,559 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor que envuelve todo menos el footer, para el layout principal */
+.content-wrapper {
+  flex: 1 0 auto;
+  padding: 0 20px; 
+  max-width: 900px; 
+  margin: 0 auto; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Mantiene el footer al fondo */
+footer {
+  flex-shrink: 0;
+}
+
+/* Estilo menú lateral */
+#sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: #666;
+  color: white;
+  transition: 0.3s;
+  padding-top: 2cm;
+  box-sizing: border-box;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  padding: 15px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+#sidebar ul li a {
+  color: white; /* Texto blanco */
+  text-decoration: none; /* Quita la línea de enlace (subrayado) */
+  display: block; /* Hace que el enlace ocupe todo el espacio del <li> */
+}
+
+#sidebar ul li:hover {
+  background-color: #4562df;
+  cursor: pointer; /* cursor de puntero al pasar el mouse */
+  transition: background-color 0.3s ease;
+}
+
+#sidebar ul li:hover a {
+  color: white; 
+}
+
+/* Checkbox para controlar el menú */
+#menu-toggle {
+  display: none;
+}
+
+/* botón hamburguesa */
+#menu-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  cursor: pointer;
+  width: 30px;
+  height: 22px;
+  z-index: 4; 
+}
+
+#menu-btn span {
+  display: block;
+  height: 4px;
+  background: black;
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+/* Al activar el checkbox, desplegar menú desplazando el sidebar visible */
+#menu-toggle:checked ~ #sidebar {
+  left: 0;
+}
+
+/* Fondo oscuro cuando está el menú abierto */
+#menu-toggle:checked ~ #overlay {
+  display: block;
+}
+
+/* Capa para oscurecer fondo y cerrar menú si se clickea */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+/* Estilo titulo centrado */
+.header {
+  text-align: center;
+  padding: 50px 0 10px 0; 
+  font-size: 24px;
+}
+
+/* --- ESTILOS DE BÚSQUEDA Y FILTROS --- */
+
+.search-filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  border: 1px solid black; 
+  border-radius: 5px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: none;
+  box-sizing: border-box;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  color: black;
+  font-size: 18px;
+  pointer-events: none; 
+}
+
+.filter-controls {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.filter-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.filter-dropdown label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.filter-select {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 5px 25px 5px 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filter-dropdown::after {
+  content: '⌄';
+  position: absolute;
+  right: 8px;
+  top: 70%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+  color: black;
+}
+
+/* --- ESTILOS DE LA CUADRÍCULA DE PRODUCTOS --- */
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 30px; 
+  padding: 20px 0;
+  /* MODIFICADO: Añade margen inferior extra para mostrar el logo completo y permitir scroll */
+  margin-bottom: 300px; 
+}
+
+.product-card {
+  width: 120px; 
+  padding: 10px;
+  border: 1px solid #ccc; 
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: white;
+  cursor: pointer; 
+  position: relative; /* Asegura que la tarjeta esté encima del logo */
+  z-index: 2;
+}
+
+.product-image-container {
+  height: 100px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+}
+
+.product-name {
+  font-size: 14px;
+  margin: 0 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4CAF50; 
+  margin: 0;
+}
+
+/* Estilo para la tarjeta de 'Agregar Producto' (con el signo +) */
+.add-product-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px; 
+  border: 1px dashed black; 
+  background-color: #f9f9f9;
+  cursor: pointer;
+  box-shadow: none; 
+}
+
+.add-product-link {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.add-icon {
+  font-size: 40px;
+  color: #666;
+}
+
+/* Logo centrado (MODIFICADO para fondo) */
+.logo {
+  display: block;
+  /* Posicionamiento absoluto respecto al body/ventana */
+  position: absolute; 
+  top: 70%; /* Mueve el centro del logo hacia abajo para que se vea completo */
+  left: 50%;
+  /* Centrado perfecto basado en su propio tamaño */
+  transform: translate(-50%, -50%); 
+  
+  margin: 0; 
+  width: 400px;
+  opacity: 0.15;
+  
+  /* Se coloca detrás de todo el contenido */
+  z-index: 0; 
+  pointer-events: none; 
+}
+
+/* Icono de correo arriba a la derecha */
+.mail-icon {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Icono de correo arriba a la derecha */
+.user-icon {
+  position: fixed;
+  top: 15px;
+  right: 80px;
+  width: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Footer */
+footer {
+  background-color: #4562df;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  /* Agregamos z-index para asegurar que está encima del logo (z-index: 0) */
+  position: relative; 
+  z-index: 10;
+}
+
+/* Media query para hacer el catálogo responsivo */
+@media (max-width: 600px) {
+  .product-card {
+    width: 100px; 
+  }
+  .add-product-card {
+    height: 130px;
+  }
+}
+
+/* --- ESTILOS DEL CONTENEDOR DE PRODUCTO (Genérico) --- */
+
+/* Contenedor principal (oscurece el fondo) */
+.prod-container {
+  display: none; 
+  position: fixed;
+  z-index: 10; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); 
+  justify-content: center; 
+  align-items: center; 
+}
+
+/* Contenido interno (el recuadro blanco) */
+.prod-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 90%; 
+  max-width: 650px; 
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex; 
+  flex-direction: column;
+}
+
+/* Botón de cierre (la 'x') */
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 11; /* Asegura que el botón de cerrar esté visible */
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+}
+
+/* --- Estilos para el DETALLE DE PRODUCTO (Contenido Inyectado) --- */
+.prod-detail-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start; 
+}
+
+.prod-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.prod-image-price {
+  flex-shrink: 0; 
+  width: 40%; 
+  max-width: 250px;
+  text-align: center;
+}
+
+#prod-image {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+#prod-name {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  color: #333;
+  font-weight: bold;
+}
+
+#prod-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+#prod-price {
+  font-size: 36px; 
+  color: #4562df; 
+  font-weight: 900;
+  margin-top: 5px;
+}
+
+.buy-button {
+  background-color: #4562df;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 18px;
+  margin-top: auto; 
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 200px; 
+}
+
+.buy-button:hover {
+  background-color: #334dcb;
+}
+
+
+/* --- Estilos para el FORMULARIO DE AÑADIR PRODUCTO (Contenido Inyectado) --- */
+
+.form-container {
+  padding: 10px;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="url"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-group-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group.half-width {
+  flex: 1;
+}
+
+.save-button {
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  width: 100%; 
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: #3e8e41;
+}
+
+/* Ocultar las plantillas en HTML para que no se muestren por defecto */
+template {
+  display: none; 
+}
+
+
+/* Media query para pantallas pequeñas (ajuste del contenedor de producto) */
+@media (max-width: 600px) {
+  .prod-detail-layout {
+    flex-direction: column; 
+    align-items: center;
+  }
+  
+  .prod-image-price {
+    width: 100%;
+    order: -1; 
+  }
+
+  .prod-content { 
+    padding: 20px;
+  }
+
+  #prod-price { 
+    margin-bottom: 15px;
+  }
+
+  .form-group-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

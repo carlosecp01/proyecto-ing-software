@@ -1,0 +1,197 @@
+html, body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+/* Línea azul (inferior) */
+.barra_decorativa_azul_1 {
+  position: absolute;
+  top: 0;
+  left: -22px; /* funcion para llevar la linea al borde izquierdo */
+  width: 40%; /* espaciado */
+  height: 28px; /* grosor */
+  background: #4562df;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+/* Línea azul (superior) */
+.barra_decorativa_azul_2 {
+  position: absolute;
+  top: 38px;
+  left: -30px; /* funcion para llevar la linea al borde izquierdo */
+  width: 60%; /* espaciado */
+  height: 28px; /* grosor */
+  background: #4562df;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+/* Línea negra (inferior) */
+.barra_decorativa_negra_1 {
+  position: absolute;
+  bottom: 0;
+  right: -22px; /* funcion para llevar la linea al borde derecho */
+  width: 40%; /* espaciado */
+  height: 28px; /* grosor */
+  background: #222;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+/* Línea negra (superior) */
+.barra_decorativa_negra_2 {
+  position: absolute;
+  bottom: 38px;
+  right: -30px; /* funcion para llevar la linea al borde izquierdo */
+  width: 60%; /* espaciado */
+  height: 28px; /* grosor */
+  background: #222;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+.help-btn {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  text-align: center;
+  z-index: 2;
+}
+
+.help-btn .circle {
+  background: #234ac9;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.help-btn .question {
+  color: #fff;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.help-btn a {
+  color: #234ac9;
+  font-size: 18px;
+  text-decoration: none;
+  margin-top: 6px;
+  display: block;
+}
+
+.container {
+  position: relative;
+  top: 110px;
+  margin: 0 auto;
+  width: 440px;
+  background: transparent;
+  padding: 0;
+  z-index: 2;
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.input-group label {
+  font-size: 28px;
+  color: #222;
+  margin-right: 12px;
+  min-width: 140px;
+  text-align: right;
+}
+
+.input-group input {
+  height: 30px;
+  width: 300px;
+  font-size: 22px;
+  padding: 4px 10px;
+  border: 2px solid #222;
+  border-radius: 3px;
+  outline: none;
+}
+
+.arrow-btn {
+  background: #4562df;
+  border: none;
+  color: white;
+  font-size: 32px;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 75px;
+  margin-left: 500px;
+}
+
+.arrow-btn:hover {
+  background: #234ac9;
+}
+
+/* Estilo para el enlace de recuperar contraseña */
+.recuperar-contrasena {
+  width: 300px;
+  text-align: right;
+  margin-top: -15px; /* Ajuste para acercar al campo de contraseña */
+  margin-bottom: 20px;
+}
+
+.recuperar-contrasena a {
+  color: #4562df;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.recuperar-contrasena a:hover {
+  color: #234ac9;
+}
+
+.registrar-usuario {
+  width: 270px;
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.registrar-usuario a {
+  color: #4562df;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.registrar-usuario a:hover {
+  color: #234ac9;
+}

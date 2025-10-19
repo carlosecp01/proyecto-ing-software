@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo - Wayne Corp</title>
+  <link rel="stylesheet" href="./style/cat_adm_style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" id="menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <nav id="sidebar">
+    <ul>
+      <li><a href="ini_adm.html">Inicio</a></li>
+      <li><a href="emp_adm.html">Empresas</a></li>
+      <li><a href="tra_con_adm.html">Transacciones</a></li>
+      <li><a href="cat_adm.html">Catalogo</a></li>
+      <li><a href="her_adm.html">Herramientas</a></li>
+      <li><a href="rep_adm.html">Reportes</a></li>
+      <li><a href="ayu_adm.html">Ayuda</a></li>
+    </ul>
+  </nav>
+
+  <div class="content-wrapper">
+    <h1 class="header">Catálogo</h1>
+    
+    <div class="search-filter-container">
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar producto..." class="search-input" />
+        <i class="fas fa-search search-icon"></i>
+      </div>
+
+      <div class="filters-container">
+        <div class="filter-drop-down">
+          <label for="brand-filter">Empresa</label>
+          <select id="brand-filter" class="filter-select">
+            <option value="all">Todas</option>
+            <option value="sc johnson">SC Johnson</option>
+            <option value="quala">Quala</option>
+            <option value="3m">3M</option>
+            <option value="familia">Familia</option>
+          </select>
+        </div>
+
+        <div class="filter-drop-down">
+          <label for="category-filter">Categoría</label>
+          <select id="category-filter" class="filter-select">
+            <option value="all">Todas</option>
+            <option value="higiene">Higiene</option>
+            <option value="viveres">Víveres</option>
+            <option value="limpieza">Limpieza</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-grid">
+      
+      <div class="product-card" 
+           data-brand="sc johnson" 
+           data-category="limpieza"
+           data-name="Limpiador Multiusos" 
+           data-price="550$"
+           data-image="./img/papel-regal.png"
+           data-description="Limpiador de pisos y superficies de alto rendimiento, ideal para el hogar y oficinas.">
+        <div class="product-image-container">
+          <img src="./img/papel-regal.png" alt="Limpiador SCJ" class="product-image" />
+        </div>
+        <p class="product-name">Limpiador Multiusos</p>
+        <p class="product-price">550$</p>
+      </div>
+
+      <div class="product-card" 
+           data-brand="familia" 
+           data-category="higiene"
+           data-name="Papel Higiénico Doble Hoja" 
+           data-price="280$"
+           data-image="./img/jabon-liquido.png"
+           data-description="Papel higiénico suave y resistente. Paquete de 12 rollos doble hoja.">
+        <div class="product-image-container">
+          <img src="./img/jabon-liquido.png" alt="Papel Higiénico Familia" class="product-image" />
+        </div>
+        <p class="product-name">Papel Higiénico</p>
+        <p class="product-price">280$</p>
+      </div>
+      
+      <div class="product-card" 
+           data-brand="quala" 
+           data-category="viveres"
+           data-name="Sopa Instantánea Pollo"
+           data-price="120$"
+           data-image="./img/producto-quala.png"
+           data-description="Deliciosa sopa instantánea con sabor a pollo, lista en 3 minutos.">
+        <div class="product-image-container">
+          <img src="./img/producto-quala.png" alt="Sopa instantánea Quala" class="product-image" />
+        </div>
+        <p class="product-name">Sopa Instantánea</p>
+        <p class="product-price">120$</p>
+      </div>
+
+      <div class="product-card" 
+           data-brand="3m" 
+           data-category="limpieza"
+           data-name="Esponja Abrasiva Profesional"
+           data-price="350$"
+           data-image="./img/3m_producto_ej.png"
+           data-description="Esponja de alta durabilidad para tareas de limpieza pesada.">
+        <div class="product-image-container">
+          <img src="./img/3m_producto_ej.png" alt="Esponja 3M" class="product-image" />
+        </div>
+        <p class="product-name">Esponja Abrasiva</p>
+        <p class="product-price">350$</p>
+      </div>
+      
+      <div class="product-card add-product-card">
+        <a href="#" class="add-product-link">
+          <i class="fas fa-plus add-icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+
+  <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
+
+  <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
+
+  <footer>
+    <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
+  </footer>
+
+  <template id="product-form-template">
+    <div class="form-container">
+      <h2>Añadir Nuevo Producto</h2>
+      <form id="add-product-form">
+        
+        <div class="form-group">
+          <label for="new-product-name">Nombre del Producto:</label>
+          <input type="text" id="new-product-name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="new-product-description">Descripción:</label>
+          <textarea id="new-product-description" required></textarea>
+        </div>
+        
+        <div class="form-group-row">
+          <div class="form-group half-width">
+            <label for="new-product-price">Precio ($):</label>
+            <input type="number" id="new-product-price" step="0.01" required>
+          </div>
+          
+          <div class="form-group half-width">
+            <label for="new-product-brand">Empresa/Marca:</label>
+            <select id="new-product-brand" required>
+              <option value="">Seleccione...</option>
+              <option value="sc johnson">SC Johnson</option>
+              <option value="quala">Quala</option>
+              <option value="3m">3M</option>
+              <option value="familia">Familia</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group-row">
+          <div class="form-group half-width">
+            <label for="new-product-category">Categoría:</label>
+            <select id="new-product-category" required>
+              <option value="">Seleccione...</option>
+              <option value="higiene">Higiene</option>
+              <option value="viveres">Víveres</option>
+              <option value="limpieza">Limpieza</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          
+          <div class="form-group half-width">
+            <label for="new-product-image-file">Imagen (Subir archivo):</label>
+            <input type="file" id="new-product-image-file" accept="image/*" required>
+          </div>
+        </div>
+        
+        <button type="submit" class="save-button">GUARDAR PRODUCTO</button>
+      </form>
+    </div>
+  </template>
+
+  <template id="product-detail-template">
+    <div class="prod-detail-layout">
+      <div class="prod-info">
+        <h2 id="prod-name">Nombre del Producto</h2>
+        <p id="prod-description">Descripción detallada del producto.</p>
+        <button class="buy-button">COMPRAR</button>
+      </div>
+      <div class="prod-image-price">
+        <img id="prod-image" src="" alt="Imagen del producto" />
+        <p id="prod-price" class="product-price">0$</p>
+      </div>
+    </div>
+  </template>
+
+  <div id="product-prod-container" class="prod-container">
+    <div class="prod-content">
+      <span class="close-button">&times;</span>
+      <div id="modal-content-container">
+      </div>
+    </div>
+  </div>
+
+  <script src="cat_js.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+html, body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+/* Líneas decorativas */
+.barra_decorativa_azul_1 {
+  position: absolute;
+  top: 0;
+  left: -22px;
+  width: 40%;
+  height: 28px;
+  background: #4562df;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+.barra_decorativa_azul_2 {
+  position: absolute;
+  top: 38px;
+  left: -30px;
+  width: 60%;
+  height: 28px;
+  background: #4562df;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+.barra_decorativa_negra_1 {
+  position: absolute;
+  bottom: 0;
+  right: -22px;
+  width: 40%;
+  height: 28px;
+  background: #222;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+.barra_decorativa_negra_2 {
+  position: absolute;
+  bottom: 38px;
+  right: -30px;
+  width: 60%;
+  height: 28px;
+  background: #222;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+
+/* Contenedor y formulario */
+.container {
+  position: relative;
+  top: 110px;
+  margin: 0 auto;
+  width: 720px; /* Ajustado para las filas dobles */
+  background: transparent;
+  padding: 0;
+  z-index: 2;
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.titulo {
+  font-size: 28px;
+  color: #222;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 100px;
+}
