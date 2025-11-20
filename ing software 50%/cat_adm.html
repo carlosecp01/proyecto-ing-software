@@ -63,67 +63,12 @@
 
     <div class="product-grid">
       
-      <div class="product-card" 
-           data-brand="sc johnson" 
-           data-category="limpieza"
-           data-name="Limpiador Multiusos" 
-           data-price="550$"
-           data-image="./img/papel-regal.png"
-           data-description="Limpiador de pisos y superficies de alto rendimiento, ideal para el hogar y oficinas.">
-        <div class="product-image-container">
-          <img src="./img/papel-regal.png" alt="Limpiador SCJ" class="product-image" />
-        </div>
-        <p class="product-name">Limpiador Multiusos</p>
-        <p class="product-price">550$</p>
-      </div>
-
-      <div class="product-card" 
-           data-brand="familia" 
-           data-category="higiene"
-           data-name="Papel Higiénico Doble Hoja" 
-           data-price="280$"
-           data-image="./img/jabon-liquido.png"
-           data-description="Papel higiénico suave y resistente. Paquete de 12 rollos doble hoja.">
-        <div class="product-image-container">
-          <img src="./img/jabon-liquido.png" alt="Papel Higiénico Familia" class="product-image" />
-        </div>
-        <p class="product-name">Papel Higiénico</p>
-        <p class="product-price">280$</p>
-      </div>
-      
-      <div class="product-card" 
-           data-brand="quala" 
-           data-category="viveres"
-           data-name="Sopa Instantánea Pollo"
-           data-price="120$"
-           data-image="./img/producto-quala.png"
-           data-description="Deliciosa sopa instantánea con sabor a pollo, lista en 3 minutos.">
-        <div class="product-image-container">
-          <img src="./img/producto-quala.png" alt="Sopa instantánea Quala" class="product-image" />
-        </div>
-        <p class="product-name">Sopa Instantánea</p>
-        <p class="product-price">120$</p>
-      </div>
-
-      <div class="product-card" 
-           data-brand="3m" 
-           data-category="limpieza"
-           data-name="Esponja Abrasiva Profesional"
-           data-price="350$"
-           data-image="./img/3m_producto_ej.png"
-           data-description="Esponja de alta durabilidad para tareas de limpieza pesada.">
-        <div class="product-image-container">
-          <img src="./img/3m_producto_ej.png" alt="Esponja 3M" class="product-image" />
-        </div>
-        <p class="product-name">Esponja Abrasiva</p>
-        <p class="product-price">350$</p>
-      </div>
-      
       <div class="product-card add-product-card">
         <a href="#" class="add-product-link">
           <i class="fas fa-plus add-icon"></i>
         </a>
       </div>
+      
     </div>
   </div>
   
@@ -154,7 +99,7 @@
         
         <div class="form-group-row">
           <div class="form-group half-width">
-            <label for="new-product-price">Precio ($):</label>
+            <label for="new-product-price">Precio de Venta ($):</label> 
             <input type="number" id="new-product-price" step="0.01" required>
           </div>
           
@@ -183,8 +128,8 @@
           </div>
           
           <div class="form-group half-width">
-            <label for="new-product-image-file">Imagen (Subir archivo):</label>
-            <input type="file" id="new-product-image-file" accept="image/*" required>
+            <label for="new-product-image-url">URL de la Imagen:</label>
+            <input type="url" id="new-product-image-url" placeholder="Ej: https://ejemplo.com/img/producto.jpg" required>
           </div>
         </div>
         
@@ -198,7 +143,12 @@
       <div class="prod-info">
         <h2 id="prod-name">Nombre del Producto</h2>
         <p id="prod-description">Descripción detallada del producto.</p>
-        <button class="buy-button">COMPRAR</button>
+        
+        <div class="admin-buttons">
+          <button class="modify-button">MODIFICAR</button>
+          <button class="delete-button">ELIMINAR</button>
+        </div>
+        
       </div>
       <div class="prod-image-price">
         <img id="prod-image" src="" alt="Imagen del producto" />
