@@ -409,3 +409,72 @@ footer {
 template {
   display: none; 
 }
+/* ====== SECCIÓN PARA AGREGAR EMPRESAS ====== */
+.add-company-section {
+  width: 90%;
+  max-width: 900px;
+  margin: 25px auto 60px;
+  background: #ffffff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.add-company-section h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #1a237e;
+}
+
+.add-company-section p {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#add-company-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-row label {
+  font-weight: bold;
+}
+
+.form-row input,
+.form-row textarea {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.btn-add-company {
+  margin-top: 10px;
+  align-self: center;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #1a237e;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.3s;
+}
+
+.btn-add-company i {
+  font-size: 0.9rem;
+}
+
+.btn-add-company:hover {
+  background: #3949ab;
+}

@@ -35,8 +35,12 @@
   <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
 
   <div class="form-container">
-    <form action="#" method="POST">
+    <form> 
       <h2>Registro de Transferencia</h2>
+      
+      <div id="order-total-display" class="form-group" style="text-align: center; font-size: 1.2rem; font-weight: bold; padding: 10px; background-color: #e9ecef; border-radius: 4px; margin-bottom: 25px; display: none;">
+        Monto Total del Pedido: <span id="display-total-amount">0.00$</span>
+      </div>
       
       <div class="form-group">
         <label for="id_doc">Cédula o RIF:</label>
@@ -55,7 +59,7 @@
 
       <div class="form-group">
         <label for="monto_ref">Monto de Referencia:</label>
-        <input type="number" id="monto_ref" name="monto_ref" step="0.01" required>
+        <input type="number" id="monto_ref" name="monto_ref" step="0.01" required readonly>
       </div>
 
       <div class="form-group">
@@ -68,14 +72,88 @@
         <label for="certificacion">Certifico que el monto que transferí es igual al monto de referencia.</label>
       </div>
 
-      <a href="ini.html"> 
       <button type="submit" class="send-btn">Enviar</button>
-      </a>
     </form>
   </div>
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const totalAmount = urlParams.get('total');
+        
+        const totalDisplayDiv = document.getElementById('order-total-display');
+        const displaySpan = document.getElementById('display-total-amount');
+        const montoRefInput = document.getElementById('monto_ref');
+        const form = document.querySelector('.form-container form');
+
+        if (totalAmount) {
+            const formattedTotal = parseFloat(totalAmount).toFixed(2);
+            
+            // 1. Mostrar el total prominente
+            displaySpan.textContent = formattedTotal + '$';
+            totalDisplayDiv.style.display = 'block';
+
+            // 2. Rellenar el campo 'Monto de Referencia'
+            montoRefInput.value = formattedTotal;
+            
+            // Opcional: Si el campo de monto transferido está vacío, rellenarlo también
+            const montoTransfInput = document.getElementById('monto_transf');
+            if (montoTransfInput && !montoTransfInput.value) {
+                montoTransfInput.value = formattedTotal;
+            }
+        }
+        
+        // -----------------------------------------------------
+        // LÓGICA DE PROCESAMIENTO DE TRANSACCIÓN (Guardar y Vaciar Carrito)
+        // -----------------------------------------------------
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // 1. Obtener datos de la orden y del formulario
+            const lastOrderDataString = localStorage.getItem('lastOrderData');
+            
+            if (!lastOrderDataString) {
+                alert('Error: No se encontró información de la orden reciente. Por favor, intente de nuevo desde el catálogo.');
+                return;
+            }
+
+            const lastOrderData = JSON.parse(lastOrderDataString);
+            
+            const cedulaRif = document.getElementById('id_doc').value;
+            const referencia = document.getElementById('referencia').value;
+            const fechaEmision = document.getElementById('fecha_emision').value;
+
+            // 2. Crear el registro de la transacción
+            const newTransaction = {
+                id: Date.now(),
+                date: fechaEmision || new Date().toISOString().split('T')[0],
+                total: lastOrderData.total,
+                cedulaRif: cedulaRif,
+                referencia: referencia,
+                items: lastOrderData.items 
+            };
+            
+            // 3. Obtener el historial y añadir la nueva transacción
+            const historyString = localStorage.getItem('transactionHistory');
+            let history = historyString ? JSON.parse(historyString) : [];
+            history.push(newTransaction);
+            localStorage.setItem('transactionHistory', JSON.stringify(history));
+
+            // 4. LIMPIAR EL CARRITO ACTIVO (wayneCorpCart) y los datos temporales
+            localStorage.removeItem('wayneCorpCart'); 
+            localStorage.removeItem('lastOrderData'); 
+
+            alert('Transferencia registrada con éxito. Redirigiendo a Historial de Transacciones.');
+            
+            // 5. Redirigir a la vista de historial
+            window.location.href = 'tra_con_log.html';
+        });
+    });
+  </script>
 
 </body>
 </html>

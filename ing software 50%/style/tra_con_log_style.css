@@ -6,8 +6,9 @@ html, body {
   flex-direction: column;
 }
 
+/* CORRECCIÓN CRÍTICA: Impedir que la cabecera (h1, etc.) se estire verticalmente */
 body > *:not(footer) {
-  flex: 1 0 auto;
+  flex: 0 0 auto; 
 }
 
 footer {
@@ -26,6 +27,7 @@ footer {
   transition: 0.3s;
   padding-top: 2cm;
   box-sizing: border-box;
+  z-index: 20;
 }
 
 #sidebar ul {
@@ -41,14 +43,14 @@ footer {
 }
 
 #sidebar ul li a {
-  color: white; /* Texto blanco */
-  text-decoration: none; /* Quita la línea de enlace (subrayado) */
-  display: block; /* Hace que el enlace ocupe todo el espacio del <li> */
+  color: white; 
+  text-decoration: none;
+  display: block; 
 }
 
 #sidebar ul li:hover {
   background-color: #4562df;
-  cursor: pointer; /* cursor de puntero al pasar el mouse */
+  cursor: pointer; 
   transition: background-color 0.3s ease;
 }
 
@@ -103,39 +105,41 @@ footer {
 /* Estilo titulo centrado */
 .header {
   text-align: center;
-  padding: 50px 0;
+  padding: 20px 0 10px 0; 
   font-size: 24px;
+  font-weight: bold;
 }
 
-/* Logo centrado */
+/* El logo no es un enlace, solo es fijo. */
 .logo {
-  display: block;
-  margin: 0 auto 40px auto;
-  width: 400px;
-  opacity: 0.15;
-}
-
-/* Icono de correo arriba a la derecha */
-.mail-icon {
   position: fixed;
-  top: 15px;
+  top: 10px;
   right: 15px;
-  width: 32px;
-  cursor: pointer;
-  z-index: 2;
+  width: 50px;
+  height: auto;
+  z-index: 10;
+  opacity: 1;
 }
 
-/* Icono de correo arriba a la derecha */
 .user-icon {
   position: fixed;
-  top: 15px;
-  right: 80px;
-  width: 32px;
-  cursor: pointer;
-  z-index: 2;
+  top: 10px;
+  right: 75px;
+  width: 30px;
+  height: auto;
+  z-index: 10;
 }
 
-/* Footer */
+.mail-icon {
+  position: fixed;
+  top: 10px;
+  right: 115px;
+  width: 30px;
+  height: auto;
+  z-index: 10;
+}
+
+/* Pie de página */
 footer {
   background-color: #4562df;
   color: white;
@@ -144,4 +148,65 @@ footer {
   width: 100%;
   font-size: 0.9rem;
   box-sizing: border-box;
+}
+
+/* ====================================
+   ESTILOS DE TABLA DE TRANSACCIONES
+   ==================================== */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* El padding superior está en 0 para que suba */
+  padding: 0 20px 20px; 
+  width: 100%;
+  box-sizing: border-box;
+  /* Permitir que crezca solo si el contenido (la tabla) es muy largo. */
+  flex: 1 1 auto; 
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 5px; /* Margen mínimo para separar del título */
+}
+
+#transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px; /* Margen mínimo para separar del título */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#transaction-table th, #transaction-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: top;
+}
+
+#transaction-table thead th {
+    background-color: #666;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#transaction-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+#transaction-table tbody tr:hover {
+    background-color: #e9e9e9;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 0 10px;
+    }
+    #transaction-table th, #transaction-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
 }

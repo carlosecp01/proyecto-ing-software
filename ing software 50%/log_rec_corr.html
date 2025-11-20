@@ -5,6 +5,22 @@
   <title>Recuperar Contraseña Wayne Corp</title>
   <link rel="stylesheet" href="./style/log_rec_corr_style.css" />
   <style>
+  .logo-3d {
+    animation: giro3D 5s linear infinite;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes giro3D {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+</style>
+
+  <style>
     /* Estilos para los mensajes de error */
     .error-message {
       color: red;
@@ -36,7 +52,7 @@
   <div class="barra_decorativa_negra_2"></div>
 
   <div class="container">
-    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo logo-3d" />
     <h1 class="titulo">Recuperar Usuario</h1>
 
     <form id="recuperar-correo-form" action="log_rec_preg.html">

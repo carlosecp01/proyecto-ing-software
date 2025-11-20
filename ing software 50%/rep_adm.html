@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inicio</title>
   <link rel="stylesheet" href="./style/rep_adm_style.css" />
+  <style>
+    .logo-3d {
+      animation: giro3D 5s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes giro3D {
+      0% {
+        transform: rotateY(0deg);
+      }
+      100% {
+        transform: rotateY(360deg);
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -28,7 +43,8 @@
   </nav>
 
   <h1 class="header">Reportes</h1>
-  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+
+  
 
   <a href="login.html">
     <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
@@ -36,9 +52,91 @@
 
   <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
 
+  <!-- SECCIÓN DE FILTROS DE REPORTES -->
+  <section class="reportes-section">
+    <h2>Generar reportes de la empresa</h2>
+    <p>Selecciona el período de tiempo para consultar los reportes.</p>
+
+    <form class="filtro-form">
+      <!-- Tipo de período -->
+      <div class="campo">
+        <label for="tipo-periodo">Tipo de período:</label>
+        <select id="tipo-periodo" name="tipo-periodo">
+          <option value="rango">Rango de fechas</option>
+          <option value="mes">Por mes</option>
+          <option value="anio">Por año</option>
+          <option value="todo">Todo el histórico</option>
+        </select>
+      </div>
+
+      <!-- Rango de fechas -->
+      <div class="grupo-fechas" id="grupo-rango">
+        <div class="campo">
+          <label for="fecha-desde">Desde:</label>
+          <input type="date" id="fecha-desde" name="fecha-desde">
+        </div>
+        <div class="campo">
+          <label for="fecha-hasta">Hasta:</label>
+          <input type="date" id="fecha-hasta" name="fecha-hasta">
+        </div>
+      </div>
+
+      <!-- Filtro por mes -->
+      <div class="grupo-fechas oculto" id="grupo-mes">
+        <div class="campo">
+          <label for="mes-reporte">Mes:</label>
+          <input type="month" id="mes-reporte" name="mes-reporte">
+        </div>
+      </div>
+
+      <!-- Filtro por año -->
+      <div class="grupo-fechas oculto" id="grupo-anio">
+        <div class="campo">
+          <label for="anio-reporte">Año:</label>
+          <input type="number" id="anio-reporte" name="anio-reporte" min="2000" max="2100" placeholder="2025">
+        </div>
+      </div>
+
+      <!-- Tipo de reporte (opcional) -->
+      <div class="campo">
+        <label for="tipo-reporte">Tipo de reporte:</label>
+        <select id="tipo-reporte" name="tipo-reporte">
+          <option value="general">General</option>
+          <option value="ventas">Ventas</option>
+          <option value="gastos">Gastos</option>
+          <option value="empresas">Empresas registradas</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-generar">Generar reporte</button>
+    </form>
+  </section>
+
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>
+
+  <!-- SCRIPT PARA CAMBIAR ENTRE RANGO / MES / AÑO -->
+  <script>
+    const tipoPeriodo = document.getElementById('tipo-periodo');
+    const grupoRango = document.getElementById('grupo-rango');
+    const grupoMes = document.getElementById('grupo-mes');
+    const grupoAnio = document.getElementById('grupo-anio');
+
+    function actualizarVisibilidadFiltros() {
+      const valor = tipoPeriodo.value;
+
+      grupoRango.style.display = (valor === 'rango') ? 'flex' : 'none';
+      grupoMes.style.display = (valor === 'mes') ? 'flex' : 'none';
+      grupoAnio.style.display = (valor === 'anio') ? 'flex' : 'none';
+    }
+
+    // Estado inicial
+    actualizarVisibilidadFiltros();
+
+    // Cambia cuando el usuario selecciona otro tipo de período
+    tipoPeriodo.addEventListener('change', actualizarVisibilidadFiltros);
+  </script>
 
 </body>
 </html>

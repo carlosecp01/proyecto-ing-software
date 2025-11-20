@@ -5,6 +5,22 @@
   <title>Login Wayne Corp</title>
   <link rel="stylesheet" href="./style/log_style.css" />
   <style>
+  .logo-3d {
+    animation: giro3D 5s linear infinite;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes giro3D {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+</style>
+
+  <style>
     /* El input comienza a 152px (140px del label + 12px de margen). Alineamos el error ahí. */
     .error-message {
       color: red;
@@ -51,7 +67,7 @@
   </div>
 
   <div class="container">
-    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo logo-3d" />
     <form action="ini_log.html" method="POST">
       <div class="input-group">
         <label for="usuario">Correo</label>

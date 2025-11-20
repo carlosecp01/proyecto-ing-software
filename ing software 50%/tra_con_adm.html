@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inicio</title>
+  <title>Transacciones (Administrador)</title>
   <link rel="stylesheet" href="./style/tra_con_adm_style.css" />
 </head>
 <body>
@@ -35,6 +35,29 @@
 
   <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
 
+  <div class="content-wrapper">
+    <div class="table-container">
+      <table id="transaction-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Cédula/RIF</th>
+            <th>Referencia</th>
+            <th>Total ($)</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Monto (Item)</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 20px;">No hay transacciones registradas.</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>

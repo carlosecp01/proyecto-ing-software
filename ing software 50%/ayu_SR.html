@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ayuda</title>
   <link rel="stylesheet" href="./style/ayu_SR_style.css" />
+  <style>
+  .logo-3d {
+    animation: giro3D 5s linear infinite;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes giro3D {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+</style>
+
 </head>
 <body>
 
@@ -25,7 +41,7 @@
   </nav>
 
   <h1 class="header">Bienvenido</h1>
-  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo logo-3d" />
 
   <a href="log.html">
   <img src="./img/usuario.png" alt="Usuario" class="user-icon" />

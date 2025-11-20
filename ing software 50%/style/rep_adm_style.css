@@ -145,3 +145,91 @@ footer {
   font-size: 0.9rem;
   box-sizing: border-box;
 }
+/* ====== SECCIÓN DE REPORTES ====== */
+.reportes-section {
+  width: 90%;
+  max-width: 800px;
+  margin: 30px auto 60px;
+  background: #ffffff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.reportes-section h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #1a237e;
+}
+
+.reportes-section p {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Formulario de filtros */
+.filtro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.campo label {
+  font-weight: bold;
+}
+
+.campo input,
+.campo select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+/* Grupos de fechas */
+.grupo-fechas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.grupo-fechas .campo {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* Botón generar */
+.btn-generar {
+  margin-top: 10px;
+  align-self: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #1a237e;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-generar:hover {
+  background: #3949ab;
+}
+
+/* Ocultar grupos por defecto */
+.oculto {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .reportes-section {
+    padding: 15px;
+  }
+}

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inicio</title>
-  <link rel="stylesheet" href="./style/tra_con_log_style.css" />
+  <title>Historial de Transacciones</title>
+  <link rel="stylesheet" href="./style/tra_con_log_style.css" /> 
 </head>
 <body>
 
@@ -19,13 +19,14 @@
     <ul>
       <li><a href="ini_log.html">Inicio</a></li>
       <li><a href="emp_log.html">Empresas</a></li>
-      <li><a href="tra_log.html">Transacciones</a></li>
+      <li><a href="tra_con_log.html">Transacciones</a></li>
       <li><a href="cat_log.html">Catalogo</a></li>
       <li><a href="ayu_log.html">Ayuda</a></li>
     </ul>
   </nav>
 
   <h1 class="header">Transacciones</h1>
+  
   <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
 
   <a href="login.html">
@@ -34,9 +35,81 @@
 
   <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
 
+  <div class="content-wrapper">
+    <div class="table-container">
+      <table id="transaction-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Cédula/RIF</th>
+            <th>Referencia</th>
+            <th>Total ($)</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Monto (Item)</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+      </table>
+    </div>
+  </div>
+
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tableBody = document.querySelector('#transaction-table tbody');
+        const historyString = localStorage.getItem('transactionHistory');
+        
+        if (!historyString) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">No hay transacciones registradas.</td></tr>';
+            return;
+        }
+
+        let history = JSON.parse(historyString);
+        
+        history.sort((a, b) => b.id - a.id); 
+
+        history.forEach(transaction => {
+            const numItems = transaction.items.length;
+            
+            transaction.items.forEach((item, index) => {
+                const row = tableBody.insertRow();
+                
+                if (index === 0) {
+                    const dateCell = row.insertCell();
+                    dateCell.textContent = transaction.date;
+                    dateCell.rowSpan = numItems;
+                    
+                    const rifCell = row.insertCell();
+                    rifCell.textContent = transaction.cedulaRif;
+                    rifCell.rowSpan = numItems;
+                    
+                    const refCell = row.insertCell();
+                    refCell.textContent = transaction.referencia;
+                    refCell.rowSpan = numItems;
+
+                    const totalCell = row.insertCell();
+                    totalCell.textContent = parseFloat(transaction.total).toFixed(2) + '$';
+                    totalCell.rowSpan = numItems;
+                    totalCell.style.fontWeight = 'bold';
+                }
+                
+                row.insertCell().textContent = item.name;
+                row.insertCell().textContent = item.quantity;
+
+                const subtotal = (item.price * item.quantity).toFixed(2);
+                row.insertCell().textContent = subtotal + '$';
+            });
+            
+            const separatorRow = tableBody.insertRow();
+            separatorRow.innerHTML = `<td colspan="7" style="height: 10px; background-color: #f0f0f0; border: none;"></td>`;
+        });
+    });
+  </script>
 
 </body>
 </html>

@@ -6,15 +6,16 @@ html, body {
   flex-direction: column;
 }
 
+/* CORRECCIÓN CRÍTICA: Se evita que los elementos intermedios (h1, img.logo) se estiren */
 body > *:not(footer) {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
 }
 
 footer {
   flex-shrink: 0;
 }
 
-/* Estilo menú lateral */
+/* Estilo menú lateral (se mantiene) */
 #sidebar {
   position: fixed;
   left: -250px;
@@ -41,14 +42,14 @@ footer {
 }
 
 #sidebar ul li a {
-  color: white; /* Texto blanco */
-  text-decoration: none; /* Quita la línea de enlace (subrayado) */
-  display: block; /* Hace que el enlace ocupe todo el espacio del <li> */
+  color: white; 
+  text-decoration: none; 
+  display: block; 
 }
 
 #sidebar ul li:hover {
   background-color: #4562df;
-  cursor: pointer; /* cursor de puntero al pasar el mouse */
+  cursor: pointer; 
   transition: background-color 0.3s ease;
 }
 
@@ -56,12 +57,11 @@ footer {
   color: white; 
 }
 
-/* Checkbox para controlar el menú */
+/* Checkbox y botón hamburguesa (se mantiene) */
 #menu-toggle {
   display: none;
 }
 
-/* botón hamburguesa */
 #menu-btn {
   position: fixed;
   top: 15px;
@@ -80,17 +80,14 @@ footer {
   border-radius: 2px;
 }
 
-/* Al activar el checkbox, desplegar menú desplazando el sidebar visible */
 #menu-toggle:checked ~ #sidebar {
   left: 0;
 }
 
-/* Fondo oscuro cuando está el menú abierto */
 #menu-toggle:checked ~ #overlay {
   display: block;
 }
 
-/* Capa para oscurecer fondo y cerrar menú si se clickea */
 #overlay {
   display: none;
   position: fixed;
@@ -103,19 +100,22 @@ footer {
 /* Estilo titulo centrado */
 .header {
   text-align: center;
-  padding: 50px 0;
+  /* Espaciado ajustado */
+  padding: 20px 0 10px 0; 
   font-size: 24px;
+  font-weight: bold;
 }
 
 /* Logo centrado */
 .logo {
-  display: block;
-  margin: 0 auto 40px auto;
-  width: 400px;
-  opacity: 0.15;
+  /* *** CORRECCIÓN: Se oculta el logo (imagen de fondo) *** */
+  display: none; 
+  /* Las propiedades anteriores (margin, width, opacity) ya no son relevantes, pero se mantendría
+     'display: none;' para la solución directa. Alternativamente, podría ser:
+     visibility: hidden; margin: 0; height: 0; */
 }
 
-/* Icono de correo arriba a la derecha */
+/* Iconos (se mantiene) */
 .mail-icon {
   position: fixed;
   top: 15px;
@@ -125,7 +125,6 @@ footer {
   z-index: 2;
 }
 
-/* Icono de correo arriba a la derecha */
 .user-icon {
   position: fixed;
   top: 15px;
@@ -135,7 +134,7 @@ footer {
   z-index: 2;
 }
 
-/* Footer */
+/* Footer (se mantiene) */
 footer {
   background-color: #4562df;
   color: white;
@@ -144,4 +143,64 @@ footer {
   width: 100%;
   font-size: 0.9rem;
   box-sizing: border-box;
+}
+
+/* ====================================
+   ESTILOS DE TABLA DE TRANSACCIONES
+   ==================================== */
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1 1 auto; 
+  padding: 0 20px 20px; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    /* REDUCIDO el margen para que suba hasta el título */
+    margin-top: 5px; 
+}
+
+#transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#transaction-table th, #transaction-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: top;
+}
+
+#transaction-table thead th {
+    background-color: #666;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#transaction-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+#transaction-table tbody tr:hover {
+    background-color: #e9e9e9;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 0 10px;
+    }
+    #transaction-table th, #transaction-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
 }

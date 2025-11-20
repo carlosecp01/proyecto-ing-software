@@ -5,8 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ayuda</title>
   <link rel="stylesheet" href="./style/ayu_adm_style.css" />
+  <style>
+  .logo-3d {
+    animation: giro3D 5s linear infinite;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes giro3D {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+</style>
+
 </head>
-<body>
+<body class="center-body">
 
   <input type="checkbox" id="menu-toggle" />
   <label for="menu-toggle" id="menu-btn">
@@ -27,16 +43,66 @@
     </ul>
   </nav>
 
-  <h1 class="header">Bienvenido</h1>
-  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
+  <div class="container-ayuda">
+
+    <h1 class="header">Centro de Ayuda</h1>
+
+    <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo logo-3d" />
+
+
+    <section class="ayuda-section">
+      <h2>¿Necesitas ayuda?</h2>
+      <p>Si tienes dudas o necesitas soporte, puedes comunicarte con nuestro equipo:</p>
+
+      <ul class="contacto-lista">
+        <li><strong>Teléfono:</strong> +58 412-0000000</li>
+        <li><strong>Correo de soporte:</strong> soporte@waynecorp.com</li>
+        <li><strong>Atención al cliente:</strong> clientes@waynecorp.com</li>
+      </ul>
+
+      <a href="ayu_cliente.html" class="btn-info">Más información</a>
+    </section>
+
+  </div>
 
   <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
-
   <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
+
+  <!-- VENTANA DE CHAT -->
+  <div class="chat-box" id="chat-box">
+    <div class="chat-header">
+      <span>Soporte Wayne Corp</span>
+      <button class="chat-close" id="close-chat">×</button>
+    </div>
+
+    <div class="chat-body">
+      <p><strong>Agente:</strong> Hola, ¿en qué podemos ayudarte hoy?</p>
+      <p>Puedes escribirnos tus dudas y nuestro equipo te responderá por los canales oficiales.</p>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" placeholder="Escribe tu mensaje (simulado)..." disabled>
+      <small>Esta es una simulación visual de chat.</small>
+    </div>
+  </div>
 
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>
+
+  <script>
+    const openChatBtn = document.getElementById('open-chat');
+    const chatBox = document.getElementById('chat-box');
+    const closeChatBtn = document.getElementById('close-chat');
+
+    openChatBtn?.addEventListener('click', () => {
+      chatBox.classList.toggle('show');
+    });
+
+    closeChatBtn.addEventListener('click', () => {
+      chatBox.classList.remove('show');
+    });
+  </script>
 
 </body>
 </html>

@@ -144,4 +144,132 @@ footer {
   width: 100%;
   font-size: 0.9rem;
   box-sizing: border-box;
+
+
+  /* ====== BOTÓN FLOTANTE DE CHAT ====== */
+.chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1a237e;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.chat-btn:hover {
+  background: #3949ab;
+}
+
+/* ====== VENTANA DE CHAT ====== */
+.chat-box {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 320px;
+  max-width: 90%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.25);
+  overflow: hidden;
+  display: none;
+  z-index: 998;
+}
+
+.chat-box.show {
+  display: block;
+}
+
+.chat-header {
+  background: #1a237e;
+  color: #ffffff;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.chat-close {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.chat-body {
+  padding: 10px 12px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.chat-body p {
+  margin: 5px 0;
+}
+
+.chat-input-area {
+  border-top: 1px solid #e0e0e0;
+  padding: 8px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chat-input-area input[type="text"] {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.chat-input-area small {
+  font-size: 0.7rem;
+  color: #666;
+}
+/* ====== CENTRAR TODO Y SUBIR EL CONTENIDO ====== */
+.center-body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-top: 40px; /* Subir contenido */
+}
+
+.container-ayuda {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Ajustes visuales */
+.ayuda-section {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+}
+/* ===== LOGO GIRANDO EN 3D ===== */
+.logo-3d {
+  animation: giro3D 5s linear infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes giro3D {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
 }
