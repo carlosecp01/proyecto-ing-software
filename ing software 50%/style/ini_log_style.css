@@ -145,3 +145,164 @@ footer {
   font-size: 0.9rem;
   box-sizing: border-box;
 }
+/* ================================
+   FONDO GENERAL
+================================ */
+body {
+  margin: 0;
+  padding: 0;
+  background: url('https://media.istockphoto.com/id/500750930/es/foto/caracas-venezuela-paisaje-urbano-de-una-tarde-soleada.jpg?s=612x612&w=0&k=20&c=SVhjs25AzYir3qL2ZlQyV0xHIUlb85vWmOAb_Nbj8wA=')
+              no-repeat center center fixed;
+  background-size: cover;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+/* ================================
+   LOGO PEQUEÑO + SLOGAN
+================================ */
+.mini-logo {
+  position: absolute;
+  top: 15px;
+  left: 120px;  /* ← antes 15px */
+  width: 90px;
+  height: auto;
+  z-index: 999;
+}
+
+
+
+.slogan {
+  position: absolute;
+  top: 90px;
+  left: 5px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  max-width: 450px;
+  z-index: 908;
+}
+
+
+
+/* ================================
+   MENÚ LATERAL
+================================ */
+#menu-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#menu-btn span {
+  display: block;
+  width: 30px;
+  height: 4px;
+  margin: 6px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+#sidebar {
+  position: fixed;
+  left: -250px;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  transition: 0.4s;
+  z-index: 900;
+  padding-top: 70px;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  padding: 15px;
+}
+
+#sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+#menu-toggle:checked ~ #sidebar {
+  left: 0;
+}
+
+/* ================================
+   HEADER
+================================ */
+.header {
+  margin-top: 180px;
+  text-align: center;
+  font-size: 3rem;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+/* ================================
+   IMAGEN DECORATIVA DE CENTRO
+================================ */
+.hero-image {
+  width: 90%;
+  max-width: 600px;
+  display: block;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+/* ================================
+   LOGO 3D ANIMADO
+================================ */
+.logo-3d {
+  display: block;
+  margin: 30px auto;
+  width: 200px;
+  animation: giro3D 5s linear infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes giro3D {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+/* ================================
+   ICONOS DE USUARIO Y MENSAJE
+================================ */
+.user-icon,
+.mail-icon {
+  width: 60px;
+  position: fixed;
+  bottom: 20px;
+}
+
+.user-icon {
+  right: 90px;
+}
+
+.mail-icon {
+  right: 20px;
+}
+
+/* ================================
+   FOOTER
+================================ */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}

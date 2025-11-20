@@ -5,24 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inicio</title>
   <link rel="stylesheet" href="./style/ini_log_style.css" />
-<style>
-  .logo-3d {
-    animation: giro3D 5s linear infinite;
-    transform-style: preserve-3d;
-  }
 
-  @keyframes giro3D {
-    0% {
-      transform: rotateY(0deg);
+  <style>
+    /* Fondo general con la imagen deseada */
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://media.istockphoto.com/id/500750930/es/foto/caracas-venezuela-paisaje-urbano-de-una-tarde-soleada.jpg?s=612x612&w=0&k=20&c=SVhjs25AzYir3qL2ZlQyV0xHIUlb85vWmOAb_Nbj8wA=')
+                  no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff; /* Texto claro para contraste */
+      font-family: Arial, sans-serif;
     }
-    100% {
-      transform: rotateY(360deg);
-    }
-  }
-</style>
 
+    /* Animación del logo 3D */
+    .logo-3d {
+      animation: giro3D 5s linear infinite;
+      transform-style: preserve-3d;
+    }
+    @keyframes giro3D {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+
+    /* Imagen destacada */
+    .hero-image {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+      margin: 20px auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    /* Logo pequeño arriba a la izquierda */
+    .mini-logo {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 90px;
+      height: auto;
+      z-index: 999;
+    }
+
+    /* Mensaje grande debajo del logo */
+    .slogan {
+      position: absolute;
+      top: 110px;
+      left: 15px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      max-width: 350px;
+      z-index: 998;
+    }
+
+    /* Para asegurar que el sidebar y demás elementos se vean bien sobre el fondo */
+    nav, footer, .header {
+      background-color: rgba(0,0,0,0.5);
+      color: #fff;
+    }
+
+    nav ul li a {
+      color: #fff;
+    }
+  </style>
 </head>
+
 <body>
+
+  <!-- Logo pequeño arriba a la izquierda -->
+  <img src="./img/logo-wayne-corp.png" class="mini-logo" alt="Logo Pequeño">
+
+  <!-- Mensaje grande del slogan -->
+  <div class="slogan">Somos tu puerta al mercado venezolano</div>
 
   <input type="checkbox" id="menu-toggle" />
   <label for="menu-toggle" id="menu-btn">
@@ -36,20 +93,23 @@
       <li><a href="ini_log.html">Inicio</a></li>
       <li><a href="emp_log.html">Empresas</a></li>
       <li><a href="tra_con_log.html">Transacciones</a></li>
-      <li><a href="cat_log.html">Catalogo</a></li>
+      <li><a href="cat_log.html">Catálogo</a></li>
       <li><a href="ayu_log.html">Ayuda</a></li>
     </ul>
   </nav>
 
   <h1 class="header">Bienvenido</h1>
-<img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo logo-3d" />
 
+
+  <!-- Logo Animado -->
+  <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo logo-3d" />
+
+  <!-- Íconos de usuario y correo -->
   <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
-
   <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
 
   <footer>
-    <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
+    <p>Maracaibo, Venezuela | Derechos Reservados ©</p>
   </footer>
 
 </body>
