@@ -1,16 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // ⚠️ IMPORTANTE: Ajusta esta URL si tu puerto de Spring Boot es diferente a 8080
+    const API_BASE_URL = 'http://localhost:8080/api'; 
+    
     // 1. Obtener elementos principales del DOM
-    const productCards = document.querySelectorAll('.product-card'); 
+    const productGrid = document.querySelector('.product-grid'); 
     const prodContainer = document.getElementById('product-prod-container'); 
     const closeButton = document.querySelector('.close-button');
     const modalContentContainer = document.getElementById('modal-content-container');
-    const cartIcon = document.getElementById('open-cart-btn'); // Elemento para abrir el carrito
+    const cartIcon = document.getElementById('open-cart-btn');
     const cartCountElement = document.getElementById('cart-count');
     
-    // Elementos para el Filtrado y Búsqueda
+    // Elementos para la Búsqueda (solo se mantiene searchInput)
     const searchInput = document.querySelector('.search-input');
-    const brandFilter = document.getElementById('brand-filter'); 
-    const categoryFilter = document.getElementById('category-filter');
+    // 🛑 brandFilter y categoryFilter han sido eliminados de aquí
     
     // Obtener las plantillas (templates)
     const detailTemplate = document.getElementById('product-detail-template');
@@ -18,28 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Estado del Carrito
     let shoppingCart = [];
+    let allProductsData = []; 
+
+    // --- Funciones Auxiliares del Modal ---
+    const showContainer = () => { prodContainer.style.display = 'flex'; };
+    const hideContainer = () => { prodContainer.style.display = 'none'; modalContentContainer.innerHTML = ''; };
 
     // ------------------------------------------------------------------
     // Funciones de Persistencia (Local Storage)
     // ------------------------------------------------------------------
 
-    /** Guarda el estado actual del carrito en el Local Storage del navegador. */
     const saveCartToStorage = () => {
         localStorage.setItem('wayneCorpCart', JSON.stringify(shoppingCart));
     };
 
-    /** Carga el carrito guardado del Local Storage al inicio. */
     const loadCartFromStorage = () => {
         const storedCart = localStorage.getItem('wayneCorpCart');
         if (storedCart) {
-            // Si hay datos, se parsean y se cargan
             shoppingCart = JSON.parse(storedCart);
         }
-        updateCartCount(); // Actualiza el contador en el icono
+        updateCartCount();
     };
 
     // ------------------------------------------------------------------
-    // Funciones de Carrito de Compras
+    // Funciones de Carrito de Compras (SIN MODIFICACIONES)
     // ------------------------------------------------------------------
     
     const updateCartCount = () => {
@@ -47,18 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
         cartCountElement.textContent = totalItems;
     };
     
-    /**
-     * Elimina un producto del carrito y actualiza la persistencia.
-     */
     const removeFromCart = (itemName) => {
         shoppingCart = shoppingCart.filter(item => item.name !== itemName);
         updateCartDisplay();
-        saveCartToStorage(); // <-- Guardar después de modificar
+        saveCartToStorage();
     };
     
-    /**
-     * Cambia la cantidad de un producto existente y actualiza la persistencia.
-     */
     const changeQuantity = (itemName, newQuantity) => {
         const item = shoppingCart.find(i => i.name === itemName);
         const quantity = parseInt(newQuantity);
@@ -70,12 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return; 
         }
         updateCartDisplay(); 
-        saveCartToStorage(); // <-- Guardar después de modificar
+        saveCartToStorage();
     };
 
-    /**
-     * Dibuja el contenido del carrito con los nuevos controles.
-     */
     const updateCartDisplay = () => {
         const listContainer = document.getElementById('cart-items-list');
         const totalItemsElement = document.getElementById('cart-total-items');
@@ -116,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 listContainer.appendChild(itemDiv);
             });
             
-            // Adjuntar eventos de escucha para los nuevos elementos creados
             document.querySelectorAll('.quantity-input-cart').forEach(input => {
                 input.addEventListener('change', (e) => {
                     const name = e.target.getAttribute('data-name');
@@ -127,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.remove-item-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const name = e.target.getAttribute('data-name');
-                    // Eliminación instantánea (sin popup)
                     removeFromCart(name);
                 });
             });
@@ -138,9 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartCount();
     };
     
-    /**
-     * Añade un producto al carrito sin mostrar ningún mensaje de confirmación feo (popup).
-     */
     const addToCart = (productName, productPrice, quantity) => {
         
         const existingItem = shoppingCart.find(item => item.name === productName);
@@ -156,22 +147,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         updateCartCount();
-        saveCartToStorage(); // <-- Guardar después de modificar
-        hideContainer(); // Cierra el modal inmediatamente.
+        saveCartToStorage();
+        hideContainer(); 
     };
     
-    /**
-     * Carga el modal del carrito y adjunta la lógica de finalización de compra.
-     */
     const loadCart = () => {
         modalContentContainer.innerHTML = ''; 
         const content = cartTemplate.content.cloneNode(true);
         modalContentContainer.appendChild(content);
         
-        // Rellenar el contenido del carrito
         updateCartDisplay(); 
         
-        // Asignar evento al botón de finalizar compra (REDIRECCIÓN A PASARELA)
         const checkoutBtn = modalContentContainer.querySelector('.checkout-button');
         if (checkoutBtn) {
             checkoutBtn.addEventListener('click', () => {
@@ -180,10 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                // Cálculo del precio final 
                 const finalPrice = shoppingCart.reduce((total, item) => total + (item.price * item.quantity), 0);
                 
-                // 1. Guardar el carrito actual como "última orden" para su posterior procesamiento en tra_log.html (MODIFICACIÓN)
                 const orderData = {
                     items: shoppingCart,
                     total: finalPrice.toFixed(2),
@@ -191,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 localStorage.setItem('lastOrderData', JSON.stringify(orderData));
                 
-                // 2. Redirigir a tra_log.html pasando solo el total (para rellenar el campo)
                 window.location.href = `tra_log.html?total=${finalPrice.toFixed(2)}`;
             });
         }
@@ -200,79 +183,104 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ------------------------------------------------------------------
-    // A. LÓGICA DE FILTRADO Y BÚSQUEDA (Sin Cambios)
+    // A. LÓGICA DE CARGA Y BÚSQUEDA (LLAMA AL BACKEND)
     // ------------------------------------------------------------------
     
-    const filterProducts = () => {
-        const searchText = searchInput.value.toLowerCase().trim();
-        const selectedBrand = brandFilter.value; 
-        const selectedCategory = categoryFilter.value;
+    const fetchAndRenderProducts = async () => {
+        const searchText = searchInput.value.trim();
 
-        productCards.forEach(card => {
-            const name = card.getAttribute('data-name').toLowerCase();
-            const brand = card.getAttribute('data-brand');
-            const category = card.getAttribute('data-category');
-            
-            let matchesSearch = true;
-            let matchesBrand = true;
-            let matchesCategory = true;
-
-            if (searchText && !name.includes(searchText)) {
-                matchesSearch = false;
-            }
-
-            if (selectedBrand !== 'all' && brand !== selectedBrand) {
-                matchesBrand = false;
-            }
-
-            if (selectedCategory !== 'all' && category !== selectedCategory) {
-                matchesCategory = false;
-            }
-
-            if (matchesSearch && matchesBrand && matchesCategory) {
-                card.style.display = 'block'; 
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    };
-    
-    const checkUrlForFilter = () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const companyParam = urlParams.get('empresa'); 
-
-        if (companyParam) {
-            const filterValue = companyParam.replace(/-/g, ' '); 
-            const option = brandFilter.querySelector(`option[value="${filterValue}"]`);
-            
-            if (option) {
-                brandFilter.value = filterValue;
-            }
+        // 1. Construir la URL con parámetros de consulta
+        const params = new URLSearchParams();
+        
+        // 🛑 SOLO AÑADIMOS EL PARÁMETRO DE BÚSQUEDA
+        if (searchText) {
+            params.append('search', searchText); 
         }
-        filterProducts();
-    };
+        
+        const url = `${API_BASE_URL}/productos?${params.toString()}`;
+        console.log("Fetching URL:", url);
 
-    searchInput.addEventListener('input', filterProducts);
-    brandFilter.addEventListener('change', filterProducts);
-    categoryFilter.addEventListener('change', filterProducts);
-    
-    // ------------------------------------------------------------------
-    // B. LÓGICA DE CONTENEDOR DE MODAL (Sin Cambios en Show/Hide)
-    // ------------------------------------------------------------------
-    
-    const showContainer = () => {
-        prodContainer.style.display = 'flex'; 
-    };
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Fallo al obtener la lista de productos. Código: ${response.status}. Mensaje: ${errorText.substring(0, 150)}...`);
+            }
+            allProductsData = await response.json(); 
+            
+            // 2. Limpiar la cuadrícula
+            productGrid.innerHTML = '';
 
-    const hideContainer = () => {
-        prodContainer.style.display = 'none'; 
-        modalContentContainer.innerHTML = '';
+            if (allProductsData.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.style.cssText = 'color: #333; font-size: 1.2em; grid-column: 1 / -1; text-align: center; margin-top: 50px;';
+                emptyMessage.textContent = searchText ? `No se encontraron resultados para "${searchText}".` : 'No hay productos disponibles.';
+                productGrid.appendChild(emptyMessage);
+                return; 
+            }
+
+            // 3. Renderizar productos
+            allProductsData.forEach(product => {
+                const card = createProductCard(product);
+                productGrid.appendChild(card); 
+            });
+
+            attachCardEventListeners(); 
+
+        } catch (error) {
+            console.error('Error al cargar productos:', error);
+            productGrid.innerHTML = `<p style="color: red; grid-column: 1 / -1; text-align: center; margin-top: 50px;">
+                ❌ Error al cargar productos: ${error.message}. 
+                Asegúrate de que el servidor Spring Boot esté corriendo.
+            </p>`;
+        }
     };
     
-    const loadProductDetail = (product) => {
+    const createProductCard = (product) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('data-name', product.nombre || '');
+        
+        const displayPrice = product.precioVenta || 'N/A';
+        card.setAttribute('data-price', displayPrice); 
+        
+        card.setAttribute('data-image', product.logo || './img/default.png'); 
+        card.setAttribute('data-description', product.descripcion || '');
+        card.setAttribute('data-id', product.id); 
+        
+        card.innerHTML = `
+            <div class="product-image-container">
+                <img src="${product.logo || './img/default.png'}" alt="${product.nombre}" class="product-image" />
+            </div>
+            <p class="product-name">${product.nombre}</p>
+            <p class="product-price">${displayPrice}$</p>
+        `;
+        return card;
+    };
+    
+    const attachCardEventListeners = () => {
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.addEventListener('click', () => {
+                loadProductDetail(card);
+            });
+        });
+    }
+
+
+    // ------------------------------------------------------------------
+    // B. LÓGICA DE DETALLE Y CARRITO (MANTENIDA)
+    // ------------------------------------------------------------------
+    
+    const loadProductDetail = (card) => {
         modalContentContainer.innerHTML = ''; 
         const content = detailTemplate.content.cloneNode(true);
         modalContentContainer.appendChild(content);
+
+        const name = card.getAttribute('data-name');
+        const price = parseFloat(card.getAttribute('data-price')); 
+        const image = card.getAttribute('data-image');
+        const description = card.getAttribute('data-description');
 
         const prodNameElement = modalContentContainer.querySelector('#prod-name'); 
         const prodDescriptionElement = modalContentContainer.querySelector('#prod-description');
@@ -284,11 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const prodDataName = modalContentContainer.querySelector('#prod-data-name');
         const prodDataPrice = modalContentContainer.querySelector('#prod-data-price');
 
-
-        const name = product.getAttribute('data-name');
-        const price = parseFloat(product.getAttribute('data-price')); 
-        const image = product.getAttribute('data-image');
-        const description = product.getAttribute('data-description');
 
         prodNameElement.textContent = name;
         prodPriceElement.textContent = price.toFixed(2) + '$';
@@ -315,13 +318,14 @@ document.addEventListener('DOMContentLoaded', () => {
         showContainer();
     };
 
-    // Asignar eventos de clic a las tarjetas de producto
-    productCards.forEach(card => {
-        card.addEventListener('click', () => {
-            loadProductDetail(card);
-        });
-    });
-
+    // ------------------------------------------------------------------
+    // C. EVENTOS INICIALES
+    // ------------------------------------------------------------------
+    
+    // Conectar el input de búsqueda con la función que llama al backend
+    searchInput.addEventListener('input', fetchAndRenderProducts);
+    // 🛑 Los eventos de brandFilter y categoryFilter han sido eliminados.
+    
     // Evento para abrir el carrito
     cartIcon.addEventListener('click', loadCart);
 
@@ -334,8 +338,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hideContainer();
         }
     });
-    
-    // Inicialización: Cargar el carrito guardado al cargar la página.
-    checkUrlForFilter();
-    loadCartFromStorage(); 
+
+    // 🛑 La función checkUrlForFilter() fue eliminada ya que no hay filtros que aplicar desde URL.
+
+    // Inicialización: Cargar el carrito guardado y los productos al cargar la página.
+    loadCartFromStorage();
+    fetchAndRenderProducts(); 
 });
