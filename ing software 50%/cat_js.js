@@ -1,21 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ⚠️ IMPORTANTE: Ajusta esta URL si tu puerto de Spring Boot es diferente a 8080
     const API_BASE_URL = 'http://localhost:8080/api'; 
     
-    // 1. Obtener elementos principales del DOM
     const productGrid = document.querySelector('.product-grid'); 
     const addProductCard = document.querySelector('.add-product-card');
     const prodContainer = document.getElementById('product-prod-container'); 
     const closeButton = document.querySelector('.close-button');
     const modalContentContainer = document.getElementById('modal-content-container');
     
-    // Elementos para el Filtrado y Búsqueda
+    // Elementos para la Búsqueda
     const searchInput = document.querySelector('.search-input');
-    const brandFilter = document.getElementById('brand-filter'); 
-    const categoryFilter = document.getElementById('category-filter');
+    // brandFilter y categoryFilter ya no se usan
     
-    // Obtener las plantillas (templates)
     const detailTemplate = document.getElementById('product-detail-template');
     const formTemplate = document.getElementById('product-form-template');
     
@@ -26,25 +22,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const hideContainer = () => { prodContainer.style.display = 'none'; modalContentContainer.innerHTML = ''; };
 
     // ------------------------------------------------------------------
-    // A. LÓGICA DE CARGA, RENDERIZACIÓN Y FILTRADO
+    // A. LÓGICA DE CARGA Y BÚSQUEDA
     // ------------------------------------------------------------------
     
     const fetchAndRenderProducts = async () => {
         const searchText = searchInput.value.trim();
-        const selectedBrand = brandFilter.value; 
-        const selectedCategory = categoryFilter.value;
 
-        // 1. Construir la URL con parámetros de consulta
+        // 1. Construir la URL con el parámetro de búsqueda
         const params = new URLSearchParams();
         
-        // Si hay texto de búsqueda, lo añade. Si está vacío, no añade el parámetro.
+        // Si hay texto de búsqueda, lo añade al URL: /api/productos?search=texto
         if (searchText) {
             params.append('search', searchText); 
         }
-        
-        // Siempre envía 'brand' y 'category' (el valor 'all' se convierte a null en el backend Service)
-        params.append('brand', selectedBrand);
-        params.append('category', selectedCategory);
         
         const url = `${API_BASE_URL}/productos?${params.toString()}`;
         console.log("Fetching URL:", url);
@@ -64,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (allProductsData.length === 0) {
                 const emptyMessage = document.createElement('p');
                 emptyMessage.style.cssText = 'color: #333; font-size: 1.2em; grid-column: 1 / -1; text-align: center; margin-top: 50px;';
-                emptyMessage.textContent = 'No se encontraron productos con los filtros aplicados.';
+                emptyMessage.textContent = 'No se encontraron productos.';
                 productGrid.insertBefore(emptyMessage, addProductCard);
                 return; 
             }
@@ -81,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error al cargar productos:', error);
             productGrid.innerHTML = `<p style="color: red; grid-column: 1 / -1; text-align: center; margin-top: 50px;">
                 ❌ Error al cargar productos: ${error.message}. 
-                Asegúrate de que el servidor Spring Boot esté corriendo y el ProductoRepository.java esté actualizado.
+                Asegúrate de que el servidor Spring Boot esté corriendo.
             </p>`;
         }
     };
@@ -90,9 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.setAttribute('data-name', product.nombre || '');
-        // Usamos .toLowerCase() para asegurar que coincida con los valores de los selects
-        card.setAttribute('data-brand', (product.empresa?.nombre || 'N/A').toLowerCase());
-        card.setAttribute('data-category', (product.categoria?.nombre || 'N/A').toLowerCase());
         
         const displayPrice = product.precioVenta || product.precioCompra;
         card.setAttribute('data-price', `${displayPrice}$`); 
@@ -132,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const productId = parseInt(card.getAttribute('data-id'));
         const productData = allProductsData.find(p => p.id === productId); 
 
-        // Llenar datos de detalle
         modalContentContainer.querySelector('#prod-name').textContent = card.getAttribute('data-name');
         modalContentContainer.querySelector('#prod-description').textContent = card.getAttribute('data-description');
         modalContentContainer.querySelector('#prod-price').textContent = card.getAttribute('data-price');
@@ -144,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const modifyButton = modalContentContainer.querySelector('.modify-button');
         const deleteButton = modalContentContainer.querySelector('.delete-button');
 
-        // 1. Botón ELIMINAR
         if (deleteButton) {
             deleteButton.addEventListener('click', () => {
                 if (confirm(`¿Estás seguro de que deseas eliminar el producto: ${card.getAttribute('data-name')}?`)) {
@@ -153,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 2. Botón MODIFICAR
         if (modifyButton) {
             modifyButton.addEventListener('click', () => {
                 if (productData) {
@@ -167,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showContainer();
     };
     
-    // Función para manejar la eliminación (DELETE)
     const handleDeleteProduct = async (productId) => {
         try {
             const response = await fetch(`${API_BASE_URL}/productos/${productId}`, {
@@ -187,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Función para cargar el formulario de modificación (PUT)
     const loadModifyForm = (product) => {
         modalContentContainer.innerHTML = ''; 
         const content = formTemplate.content.cloneNode(true);
@@ -204,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceValue = product.precioVenta; 
         document.getElementById('new-product-price').value = priceValue ? priceValue.toString() : ''; 
         
+        // Mantenemos los campos de Marca/Categoría para el CRUD (Creación/Modificación)
         document.getElementById('new-product-brand').value = (product.empresa?.nombre || '').toLowerCase();
         document.getElementById('new-product-category').value = (product.categoria?.nombre || '').toLowerCase();
 
@@ -250,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showContainer();
     };
 
-    // Función para añadir nuevo producto (POST)
     const loadAddProductForm = () => {
         modalContentContainer.innerHTML = ''; 
         const content = formTemplate.content.cloneNode(true);
@@ -302,10 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // C. EVENTOS INICIALES
     // ------------------------------------------------------------------
     
-    // Asignar eventos de Filtrado/Búsqueda a la función que llama al backend
+    // Asignar evento de Búsqueda
     searchInput.addEventListener('input', fetchAndRenderProducts);
-    brandFilter.addEventListener('change', fetchAndRenderProducts);
-    categoryFilter.addEventListener('change', fetchAndRenderProducts);
+    // 🛑 Los eventos de brandFilter y categoryFilter han sido eliminados.
     
     // Asignar evento al botón de añadir
     addProductCard.addEventListener('click', (e) => {
@@ -313,7 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadAddProductForm();
     });
 
-    // Eventos para cerrar el contenedor
     closeButton.addEventListener('click', hideContainer);
 
     window.addEventListener('click', (event) => {
@@ -322,6 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // INICIO DE LA LÓGICA AL CARGAR LA PÁGINA: Cargar todos los productos
+    // INICIO DE LA LÓGICA AL CARGAR LA PÁGINA
     fetchAndRenderProducts(); 
 });

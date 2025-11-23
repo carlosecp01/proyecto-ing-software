@@ -1,22 +1,25 @@
 package com.asociados.wayne.service;
 
-import com.asociados.wayne.dtos.ProductoCreationDto;
-import com.asociados.wayne.model.Producto;
-
 import java.util.List;
 import java.util.Optional;
 
+import com.asociados.wayne.dtos.ProductoCreationDto;
+import com.asociados.wayne.model.Producto; // Asumimos que esta clase existe
+
 public interface ProductoService {
 
-    List<Producto> findAll();
+    List<Producto> findAll(); 
+    
+    // Firma del método de búsqueda simple
+    List<Producto> searchProducts(String search);
 
     Optional<Producto> findById(Integer id);
+    
+    // Métodos CRUD básicos
+    Producto save(Producto producto); 
 
-    // Métodos de administración
+    // Métodos CRUD con DTO (Necesarios para la creación/edición desde el JS)
     Producto save(ProductoCreationDto dto);
     Producto update(Integer id, ProductoCreationDto dto);
     void delete(Integer id);
-    
-    // Método para filtrado y búsqueda
-    List<Producto> findFiltered(String search, String brand, String category);
 }
