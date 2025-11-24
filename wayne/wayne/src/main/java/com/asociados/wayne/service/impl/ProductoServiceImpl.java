@@ -28,16 +28,13 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public List<Producto> findAll() {
-        // Llama a la búsqueda sin parámetros (nulo) para obtener todos
         return searchProducts(null); 
     }
     
-    // 🛑 IMPLEMENTACIÓN DEL MÉTODO DE BÚSQUEDA SIMPLE
     @Override
     public List<Producto> searchProducts(String search) {
-        // Si el 'search' es nulo o vacío, se convierte a NULL.
         String finalSearch = (search != null && search.trim().isEmpty()) ? null : search;
-        return productoRepository.searchByNombre(finalSearch); // 🛑 LLAMADA CORREGIDA
+        return productoRepository.searchByNombre(finalSearch);
     }
 
     @Override
@@ -50,28 +47,60 @@ public class ProductoServiceImpl implements ProductoService {
         return productoRepository.save(producto);
     }
 
-    // ⚠️ Implementaciones Placeholder de DTO para que compile el servicio
-    // Necesitarás reemplazar estos cuerpos con tu lógica real de mapeo de DTO y asignación de Empresa/Categoría.
-    
+    // 🛑 IMPLEMENTACIÓN CORREGIDA Y COMPLETA PARA CREACIÓN (POST)
     @Override
     public Producto save(ProductoCreationDto dto) {
-         // Ejemplo de lógica mínima:
          Producto nuevoProducto = new Producto(); 
+         
+         // ✅ Mapeo de campos del DTO a la Entidad Producto:
          nuevoProducto.setNombre(dto.name());
          nuevoProducto.setDescripcion(dto.description());
-         // Aquí iría la lógica para buscar Empresa y Categoría por nombre y asignarlas.
+         nuevoProducto.setPrecioVenta(dto.price()); // ✅ CORREGIDO: Usando dto.price()
+         nuevoProducto.setLogo(dto.imageUrl()); // ✅ CORREGIDO: Usando dto.imageUrl()
+         
+         // Lógica para Empresa y Categoría (Pendiente de implementar)
+         /*
+         if (dto.brand() != null && !dto.brand().isEmpty()) { // Usando dto.brand()
+             Empresa empresa = empresaRepository.findByNombre(dto.brand())
+                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa no encontrada: " + dto.brand()));
+             nuevoProducto.setEmpresa(empresa);
+         }
+         if (dto.category() != null && !dto.category().isEmpty()) { // Usando dto.category()
+             Categoria categoria = categoriaRepository.findByNombre(dto.category())
+                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada: " + dto.category()));
+             nuevoProducto.setCategoria(categoria);
+         }
+         */
+         
          return productoRepository.save(nuevoProducto);
     }
     
+    // 🛑 IMPLEMENTACIÓN CORREGIDA Y COMPLETA PARA MODIFICACIÓN (PUT)
     @Override
     @Transactional
     public Producto update(Integer id, ProductoCreationDto dto) {
         Producto productoExistente = productoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado."));
         
+        // ✅ Mapeo de campos del DTO a la Entidad Producto:
         productoExistente.setNombre(dto.name());
         productoExistente.setDescripcion(dto.description());
-        // Lógica de actualización de otros campos...
+        productoExistente.setPrecioVenta(dto.price()); // ✅ CORREGIDO: Usando dto.price()
+        productoExistente.setLogo(dto.imageUrl()); // ✅ CORREGIDO: Usando dto.imageUrl()
+        
+        // Lógica para Empresa y Categoría (Pendiente de implementar)
+        /*
+        if (dto.brand() != null && !dto.brand().isEmpty()) { // Usando dto.brand()
+            Empresa empresa = empresaRepository.findByNombre(dto.brand())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Empresa no encontrada: " + dto.brand()));
+            productoExistente.setEmpresa(empresa);
+        }
+        if (dto.category() != null && !dto.category().isEmpty()) { // Usando dto.category()
+            Categoria categoria = categoriaRepository.findByNombre(dto.category())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada: " + dto.category()));
+            productoExistente.setCategoria(categoria);
+        }
+        */
         
         return productoRepository.save(productoExistente);
     }

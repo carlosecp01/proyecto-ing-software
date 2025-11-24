@@ -1,3 +1,4 @@
+/* --- LAYOUT GLOBAL & SLIDING CONTENT FIX --- */
 html, body {
   margin: 0;
   height: 100%;
@@ -6,9 +7,25 @@ html, body {
   flex-direction: column;
 }
 
-/* Contenedor que envuelve todo menos el footer, para el layout principal */
+/* Nuevo contenedor para todo el contenido que debe moverse */
+#page-content-wrapper {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s; 
+    position: relative; 
+    z-index: 1; /* CORRECCIÓN: Asegura que el contenido se vea por debajo del sidebar */
+    min-height: 100vh;
+}
+
+/* Al activar el checkbox, desplaza todo el contenido 250px a la derecha */
+#menu-toggle:checked ~ #page-content-wrapper {
+    transform: translateX(250px);
+}
+
+/* El contenido del catálogo (content-wrapper) ahora crece dentro de #page-content-wrapper */
 .content-wrapper {
-  flex: 1 0 auto;
+  flex-grow: 1;
   padding: 0 20px; 
   max-width: 900px; 
   margin: 0 auto; 
@@ -20,6 +37,7 @@ html, body {
 footer {
   flex-shrink: 0;
 }
+/* ------------------------------------------- */
 
 /* Estilo menú lateral */
 #sidebar {
@@ -33,6 +51,7 @@ footer {
   transition: 0.3s;
   padding-top: 2cm;
   box-sizing: border-box;
+  z-index: 10; /* CORRECCIÓN: Asegura que el sidebar esté por encima de todo el contenido */
 }
 
 #sidebar ul {
@@ -76,7 +95,7 @@ footer {
   cursor: pointer;
   width: 30px;
   height: 22px;
-  z-index: 4; 
+  z-index: 20; /* CORRECCIÓN: Asegura que esté por encima del sidebar (10) */
 }
 
 #menu-btn span {
@@ -104,7 +123,7 @@ footer {
   top: 0; left: 0;
   width: 100%; height: 100%;
   background: rgba(0,0,0,0.5);
-  z-index: 1;
+  z-index: 1; /* Debe estar debajo del sidebar (10) */
 }
 
 /* Estilo titulo centrado */
@@ -151,48 +170,6 @@ footer {
   pointer-events: none; 
 }
 
-.filter-controls {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.filter-dropdown {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.filter-dropdown label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.filter-select {
-  appearance: none; 
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding: 5px 25px 5px 10px;
-  border: 1px solid black;
-  border-radius: 5px;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.filter-dropdown::after {
-  content: '⌄';
-  position: absolute;
-  right: 8px;
-  top: 70%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  font-size: 18px;
-  color: black;
-}
-
 /* --- ESTILOS DE LA CUADRÍCULA DE PRODUCTOS --- */
 
 .product-grid {
@@ -201,7 +178,6 @@ footer {
   justify-content: center; 
   gap: 30px; 
   padding: 20px 0;
-  /* MODIFICADO: Añade margen inferior extra para mostrar el logo completo y permitir scroll */
   margin-bottom: 300px; 
 }
 
@@ -214,8 +190,8 @@ footer {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: white;
   cursor: pointer; 
-  position: relative; /* Asegura que la tarjeta esté encima del logo */
-  z-index: 2;
+  position: relative; 
+  z-index: 2; /* Se mantiene bajo el sidebar (10) */
 }
 
 .product-image-container {
@@ -229,7 +205,6 @@ footer {
 .product-image {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Asegura que la imagen se vea bien */
   border-radius: 5px;
 }
 
@@ -248,50 +223,58 @@ footer {
   margin: 0;
 }
 
-/* Estilo para la tarjeta de 'Agregar Producto' (con el signo +) */
-/* MODIFICADO: Ocultar el elemento para cumplir el requisito */
-.add-product-card {
-  display: none; /* Oculta el elemento por completo */
-}
-
-
 /* Logo centrado (MODIFICADO para fondo) */
 .logo {
   display: block;
-  /* Posicionamiento absoluto respecto al body/ventana */
   position: absolute; 
-  top: 70%; /* Mueve el centro del logo hacia abajo para que se vea completo */
+  top: 70%; 
   left: 50%;
-  /* Centrado perfecto basado en su propio tamaño */
   transform: translate(-50%, -50%); 
-  
-  margin: 0; 
   width: 400px;
   opacity: 0.15;
-  
-  /* Se coloca detrás de todo el contenido */
   z-index: 0; 
   pointer-events: none; 
 }
 
-/* Icono de correo arriba a la derecha */
-.mail-icon {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  width: 32px;
-  cursor: pointer;
-  z-index: 2;
+/* Iconos de cabecera */
+.user-icon {
+    position: fixed;
+    top: 15px;
+    right: 80px; /* Posicionado para no chocar con el carrito (si existe) */
+    width: 32px;
+    cursor: pointer;
+    z-index: 2; /* Se mantiene bajo el sidebar (10) */
 }
 
-/* Icono de correo arriba a la derecha */
-.user-icon {
-  position: fixed;
-  top: 15px;
-  right: 80px;
-  width: 32px;
-  cursor: pointer;
-  z-index: 2;
+.cart-icon-container {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 2; 
+    display: flex;
+    align-items: center;
+}
+
+.cart-icon {
+    font-size: 32px; 
+    color: #4562df;
+    transition: color 0.3s;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 12px;
+    text-align: center;
+    line-height: 1.2;
 }
 
 /* Footer */
@@ -303,71 +286,11 @@ footer {
   width: 100%;
   font-size: 0.9rem;
   box-sizing: border-box;
-  /* Agregamos z-index para asegurar que está encima del logo (z-index: 0) */
   position: relative; 
   z-index: 10;
 }
 
-/* Media query para hacer el catálogo responsivo */
-@media (max-width: 600px) {
-  .product-card {
-    width: 100px; 
-  }
-}
-
-/* --- ESTILOS DEL CONTENEDOR DE PRODUCTO (Genérico) --- */
-
-/* Contenedor principal (oscurece el fondo) */
-.prod-container {
-  display: none; 
-  position: fixed;
-  z-index: 10; 
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4); 
-  justify-content: center; 
-  align-items: center; 
-}
-
-/* Contenido interno (el recuadro blanco) */
-.prod-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 30px;
-  border: 1px solid #888;
-  width: 90%; 
-  max-width: 650px; 
-  border-radius: 15px;
-  position: relative;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  display: flex; 
-  flex-direction: column;
-}
-
-/* Botón de cierre (la 'x') */
-.close-button {
-  color: #aaa;
-  position: absolute;
-  top: 10px;
-  right: 25px;
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  /* CORRECCIÓN FINAL: Z-index muy alto para que esté siempre visible y clickeable */
-  z-index: 999; 
-}
-
-.close-button:hover,
-.close-button:focus {
-  color: black;
-  text-decoration: none;
-}
-
-/* --- Estilos para el DETALLE DE PRODUCTO (Contenido Inyectado) --- */
+/* --- ESTILOS DEL MODAL DE DETALLE (Solo Buy) --- */
 .prod-detail-layout {
   display: flex;
   gap: 20px;
@@ -415,15 +338,26 @@ footer {
   margin-top: 5px;
 }
 
-/* NUEVO: Estilo para el enlace que contiene el botón de comprar */
-.buy-button-link {
-    text-decoration: none; /* Quita el subrayado del enlace */
-    width: 100%; 
-    max-width: 200px;
-    margin-top: auto;
+/* Estilos para el input de cantidad en el detalle */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0 20px 0;
+    font-size: 16px;
+    font-weight: bold;
 }
 
-/* El botón de comprar dentro del enlace */
+#product-quantity {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
 .buy-button {
   background-color: #4562df;
   color: white;
@@ -431,97 +365,19 @@ footer {
   padding: 10px 20px;
   text-align: center;
   font-size: 18px;
+  margin-top: auto; 
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
   transition: background-color 0.3s;
   width: 100%;
-  /* Como es un <button> dentro de un <a>, el ancho debe ser 100% para llenar el <a> */
-  display: block; 
+  max-width: 200px; 
 }
 
 .buy-button:hover {
   background-color: #334dcb;
 }
-
-
-
-/* --- Estilos para el FORMULARIO DE AÑADIR PRODUCTO (Contenido Inyectado) --- */
-
-.form-container {
-  padding: 10px;
-}
-
-.form-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  color: #333;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group input[type="url"],
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 16px;
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.form-group-row {
-  display: flex;
-  gap: 20px;
-}
-
-.form-group.half-width {
-  flex: 1;
-}
-
-.save-button {
-  background-color: #4CAF50; 
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s;
-  width: 100%; 
-  margin-top: 20px;
-}
-
-.save-button:hover {
-  background-color: #3e8e41;
-}
-
-/* Ocultar las plantillas en HTML para que no se muestren por defecto */
-template {
-  display: none; 
-}
-
-
-/* Media query para pantallas pequeñas (ajuste del contenedor de producto) */
+/* Media query para pantallas pequeñas (ajuste de detalle) */
 @media (max-width: 600px) {
   .prod-detail-layout {
     flex-direction: column; 
@@ -532,17 +388,52 @@ template {
     width: 100%;
     order: -1; 
   }
+}
 
-  .prod-content { 
-    padding: 20px;
-  }
+/* --- ESTILOS GENERALES DEL MODAL (prod-container, prod-content, close-button) --- */
 
-  #prod-price { 
-    margin-bottom: 15px;
-  }
+.prod-container {
+  display: none; 
+  position: fixed;
+  z-index: 10; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); 
+  justify-content: center; 
+  align-items: center; 
+}
 
-  .form-group-row {
-    flex-direction: column;
-    gap: 0;
-  }
+.prod-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 90%; 
+  max-width: 650px; 
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex; 
+  flex-direction: column;
+}
+
+.close-button {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 11; 
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
 }

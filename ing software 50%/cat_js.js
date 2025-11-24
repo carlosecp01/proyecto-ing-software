@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Elementos para la Búsqueda
     const searchInput = document.querySelector('.search-input');
-    // brandFilter y categoryFilter ya no se usan
     
     const detailTemplate = document.getElementById('product-detail-template');
     const formTemplate = document.getElementById('product-form-template');
@@ -28,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchAndRenderProducts = async () => {
         const searchText = searchInput.value.trim();
 
-        // 1. Construir la URL con el parámetro de búsqueda
         const params = new URLSearchParams();
         
-        // Si hay texto de búsqueda, lo añade al URL: /api/productos?search=texto
         if (searchText) {
             params.append('search', searchText); 
         }
@@ -49,7 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 2. Limpiar y mantener el botón de añadir
             productGrid.innerHTML = '';
-            productGrid.appendChild(addProductCard); 
+            
+            if (addProductCard) {
+                 productGrid.appendChild(addProductCard); 
+            } else {
+                 console.error("No se encontró el botón de añadir producto (.add-product-card).");
+                 return;
+            }
 
             if (allProductsData.length === 0) {
                 const emptyMessage = document.createElement('p');
@@ -186,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const priceValue = product.precioVenta; 
         document.getElementById('new-product-price').value = priceValue ? priceValue.toString() : ''; 
         
-        // Mantenemos los campos de Marca/Categoría para el CRUD (Creación/Modificación)
         document.getElementById('new-product-brand').value = (product.empresa?.nombre || '').toLowerCase();
         document.getElementById('new-product-category').value = (product.categoria?.nombre || '').toLowerCase();
 
@@ -201,13 +203,14 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             
+            // 🛑 CORRECCIÓN FINAL: Mapeo exacto a ProductoCreationDto: name, description, price, brand, category, imageUrl
             const modifiedProduct = {
-                name: document.getElementById('new-product-name').value,
-                description: document.getElementById('new-product-description').value,
-                price: parseFloat(document.getElementById('new-product-price').value), 
-                brand: document.getElementById('new-product-brand').value,
-                category: document.getElementById('new-product-category').value,
-                imageUrl: imageUrlInput ? imageUrlInput.value.trim() : product.logo || '', 
+                name: document.getElementById('new-product-name').value, 
+                description: document.getElementById('new-product-description').value, 
+                price: parseFloat(document.getElementById('new-product-price').value) || 0.0, // <-- Corregido a 'price'
+                brand: document.getElementById('new-product-brand').value, // <-- Corregido a 'brand'
+                category: document.getElementById('new-product-category').value, // <-- Corregido a 'category'
+                imageUrl: imageUrlInput ? imageUrlInput.value.trim() : product.logo || '', // <-- Corregido a 'imageUrl'
             };
             
             try {
@@ -247,13 +250,14 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             
+            // 🛑 CORRECCIÓN FINAL: Mapeo exacto a ProductoCreationDto: name, description, price, brand, category, imageUrl
             const newProduct = {
-                name: document.getElementById('new-product-name').value,
-                description: document.getElementById('new-product-description').value,
-                price: parseFloat(document.getElementById('new-product-price').value), 
-                brand: document.getElementById('new-product-brand').value,
-                category: document.getElementById('new-product-category').value,
-                imageUrl: imageUrlInput ? imageUrlInput.value.trim() : ''
+                name: document.getElementById('new-product-name').value, 
+                description: document.getElementById('new-product-description').value, 
+                price: parseFloat(document.getElementById('new-product-price').value) || 0.0, // <-- Corregido a 'price'
+                brand: document.getElementById('new-product-brand').value, // <-- Corregido a 'brand'
+                category: document.getElementById('new-product-category').value, // <-- Corregido a 'category'
+                imageUrl: imageUrlInput ? imageUrlInput.value.trim() : '' // <-- Corregido a 'imageUrl'
             };
             
             try {
@@ -286,7 +290,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Asignar evento de Búsqueda
     searchInput.addEventListener('input', fetchAndRenderProducts);
-    // 🛑 Los eventos de brandFilter y categoryFilter han sido eliminados.
     
     // Asignar evento al botón de añadir
     addProductCard.addEventListener('click', (e) => {

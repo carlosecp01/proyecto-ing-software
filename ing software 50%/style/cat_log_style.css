@@ -1,14 +1,36 @@
+/* --- CAMBIOS PRINCIPALES PARA EL SLIDING CONTENT --- */
 html, body {
   margin: 0;
   height: 100%;
   font-family: Arial, sans-serif;
+  /* Mantenemos body como contenedor flex vertical */
   display: flex;
   flex-direction: column;
 }
 
-/* Contenedor que envuelve todo menos el footer, para el layout principal */
+/* Nuevo contenedor para todo el contenido que debe moverse */
+#page-content-wrapper {
+    /* Ocupa el espacio de crecimiento del body para empujar el footer */
+    flex: 1 0 auto;
+    /* Contenedor Flex para manejar el apilamiento del catálogo y el footer */
+    display: flex;
+    flex-direction: column;
+    /* Animación de desplazamiento */
+    transition: transform 0.3s; 
+    position: relative; 
+    z-index: 2; /* Se mantiene sobre el fondo */
+}
+
+/* Al activar el checkbox, desplaza todo el contenido 250px a la derecha */
+#menu-toggle:checked ~ #page-content-wrapper {
+    transform: translateX(250px);
+}
+
+/* El contenido del catálogo (content-wrapper) ahora crece dentro de #page-content-wrapper */
 .content-wrapper {
-  flex: 1 0 auto;
+  /* MODIFICADO: Reemplazamos flex: 1 0 auto; por flex-grow: 1; 
+     para que ocupe el espacio y empuje el footer */
+  flex-grow: 1;
   padding: 0 20px; 
   max-width: 900px; 
   margin: 0 auto; 
@@ -20,6 +42,7 @@ html, body {
 footer {
   flex-shrink: 0;
 }
+/* --- FIN CAMBIOS PRINCIPALES --- */
 
 /* Estilo menú lateral */
 #sidebar {
@@ -33,6 +56,7 @@ footer {
   transition: 0.3s;
   padding-top: 2cm;
   box-sizing: border-box;
+  z-index: 3; /* Asegura que esté por encima del contenido y el botón hamburguesa */
 }
 
 #sidebar ul {
@@ -250,7 +274,7 @@ footer {
 /* Logo centrado (MODIFICADO para fondo) */
 .logo {
   display: block;
-  /* Posicionamiento absoluto respecto al body/ventana */
+  /* Posicionamiento absoluto respecto al body/viewport */
   position: absolute; 
   top: 70%; /* Mueve el centro del logo hacia abajo para que se vea completo */
   left: 50%;
