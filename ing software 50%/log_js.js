@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Verificar si es el administrador
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                localStorage.setItem('currentUserEmail', email); // <-- MODIFICADO: Guarda email
                 window.location.href = 'ini_adm.html';
                 return; // Detener la ejecución
             }
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (isRegularUser) {
+                localStorage.setItem('currentUserEmail', email); // <-- MODIFICADO: Guarda email
                 window.location.href = 'ini_log.html';
                 return; // Detener la ejecución
             }

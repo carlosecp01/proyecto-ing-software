@@ -20,8 +20,9 @@
       <li><a href="ini_log.html">Inicio</a></li>
       <li><a href="emp_log.html">Empresas</a></li>
       <li><a href="tra_con_log.html">Transacciones</a></li>
-      <li><a href="cat_log.html">Catalogo</a></li>
+      <li><a href="cat_log.html">Catálogo</a></li>
       <li><a href="ayu_log.html">Ayuda</a></li>
+      <li><a href="log.html">Cerrar Sesión</a></li>
     </ul>
   </nav>
 
@@ -29,32 +30,25 @@
   
   <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
 
-  <a href="login.html">
-    <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
-  </a>
 
-  <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
 
-  <div class="content-wrapper">
-    <div class="table-container">
-      <table id="transaction-table">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Cédula/RIF</th>
-            <th>Referencia</th>
-            <th>Total ($)</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Monto (Item)</th>
-          </tr>
-        </thead>
-        <tbody>
-          </tbody>
-      </table>
-    </div>
+  <div class="table-container">
+    <table id="transaction-table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cédula/RIF</th>
+          <th>Referencia</th>
+          <th>Total ($)</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Monto (Item)</th>
+        </tr>
+      </thead>
+      <tbody>
+        </tbody>
+    </table>
   </div>
-
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>
@@ -62,18 +56,30 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const tableBody = document.querySelector('#transaction-table tbody');
-        const historyString = localStorage.getItem('transactionHistory');
+
+        // Función para obtener la clave única del historial de transacciones (PRIVADA)
+        const getTransactionHistoryKey = () => {
+            const userEmail = localStorage.getItem('currentUserEmail');
+            if (!userEmail) {
+                return 'transactionHistory_GUEST'; 
+            }
+            return `transactionHistory_${userEmail}`;
+        };
+
+        // 1. Obtener el historial de transacciones del usuario actual
+        const historyKey = getTransactionHistoryKey(); 
+        const historyString = localStorage.getItem(historyKey); // <-- Carga la clave privada
+        const transactionHistory = historyString ? JSON.parse(historyString) : [];
         
-        if (!historyString) {
-            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">No hay transacciones registradas.</td></tr>';
+        transactionHistory.sort((a, b) => b.id - a.id); 
+
+        // 2. Renderizar las transacciones
+        if (transactionHistory.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">No hay transacciones registradas para este usuario.</td></tr>';
             return;
         }
 
-        let history = JSON.parse(historyString);
-        
-        history.sort((a, b) => b.id - a.id); 
-
-        history.forEach(transaction => {
+        transactionHistory.forEach((transaction) => {
             const numItems = transaction.items.length;
             
             transaction.items.forEach((item, index) => {

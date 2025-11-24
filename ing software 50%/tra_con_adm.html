@@ -22,17 +22,14 @@
       <li><a href="cat_adm.html">Catalogo</a></li>
       <li><a href="rep_adm.html">Reportes</a></li>
       <li><a href="ayu_adm.html">Ayuda</a></li>
+      <li><a href="log.html">Cerrar Sesión</a></li>
     </ul>
   </nav>
 
   <h1 class="header">Transacciones</h1>
   <img src="./img/logo-wayne-corp.png" alt="Wayne Corp Logo" class="logo" />
 
-  <a href="login.html">
-    <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
-  </a>
-
-  <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
+  
 
   <div class="content-wrapper">
     <div class="table-container">
@@ -40,6 +37,7 @@
         <thead>
           <tr>
             <th>Fecha</th>
+            <th>Usuario (Email)</th>
             <th>Cédula/RIF</th>
             <th>Referencia</th>
             <th>Total ($)</th>
@@ -49,10 +47,7 @@
           </tr>
         </thead>
         <tbody>
-            <tr>
-                <td colspan="7" style="text-align: center; padding: 20px;">No hay transacciones registradas.</td>
-            </tr>
-        </tbody>
+            </tbody>
       </table>
     </div>
   </div>
@@ -60,6 +55,67 @@
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tableBody = document.querySelector('#transaction-table tbody');
+        const GLOBAL_HISTORY_KEY = 'transactionHistory_GLOBAL'; // Clave Global
+
+        // 1. Obtener el historial de transacciones global
+        const historyString = localStorage.getItem(GLOBAL_HISTORY_KEY);
+        const transactionHistory = historyString ? JSON.parse(historyString) : [];
+        
+        // Ordenar por ID (más reciente primero)
+        transactionHistory.sort((a, b) => b.id - a.id); 
+
+        // 2. Renderizar las transacciones
+        if (transactionHistory.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 20px;">No hay transacciones registradas en el historial global.</td></tr>';
+            return;
+        }
+
+        transactionHistory.forEach((transaction) => {
+            const numItems = transaction.items.length;
+            
+            transaction.items.forEach((item, index) => {
+                const row = tableBody.insertRow();
+                
+                if (index === 0) {
+                    const dateCell = row.insertCell();
+                    dateCell.textContent = transaction.date;
+                    dateCell.rowSpan = numItems;
+                    
+                    const userEmailCell = row.insertCell();
+                    userEmailCell.textContent = transaction.userEmail || 'N/A';
+                    userEmailCell.rowSpan = numItems;
+                    
+                    const rifCell = row.insertCell();
+                    rifCell.textContent = transaction.cedulaRif;
+                    rifCell.rowSpan = numItems;
+                    
+                    const refCell = row.insertCell();
+                    refCell.textContent = transaction.referencia;
+                    refCell.rowSpan = numItems;
+
+                    const totalCell = row.insertCell();
+                    totalCell.textContent = parseFloat(transaction.total).toFixed(2) + '$';
+                    totalCell.rowSpan = numItems;
+                    totalCell.style.fontWeight = 'bold';
+                }
+                
+                row.insertCell().textContent = item.name;
+                row.insertCell().textContent = item.quantity;
+
+                const subtotal = (item.price * item.quantity).toFixed(2);
+                row.insertCell().textContent = subtotal + '$';
+            });
+            
+            // Fila separadora
+            const separatorRow = tableBody.insertRow();
+            separatorRow.innerHTML = `<td colspan="8" style="height: 10px; background-color: #f0f0f0; border: none;"></td>`;
+        });
+    });
+  </script>
 
 </body>
 </html>

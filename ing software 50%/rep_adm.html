@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inicio</title>
+  <title>Reportes</title>
   <link rel="stylesheet" href="./style/rep_adm_style.css" />
   <style>
+    /* Estilos generales para el HTML */
     .logo-3d {
       animation: giro3D 5s linear infinite;
       transform-style: preserve-3d;
@@ -19,6 +20,176 @@
         transform: rotateY(360deg);
       }
     }
+
+    /* Estilos para la sección de reportes generados */
+    .reportes-section, .report-results {
+        max-width: 950px; /* Aumentado un poco para la tabla detallada */
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .report-results h2 {
+        color: #000d23;
+        border-bottom: 2px solid #0056b3;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* MODIFICACIÓN: CUADROS MÁS PEQUEÑOS Y TÉCNICOS */
+    /* ------------------------------------------------------------------ */
+    .summary-cards {
+        display: flex;
+        justify-content: flex-start; /* Alineado a la izquierda */
+        gap: 15px; /* Menor espacio entre cuadros */
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #ddd;
+    }
+    
+    .card {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 10px 15px; /* Padding reducido */
+        flex: none; /* No estirar, usar tamaño fijo o mínimo */
+        width: 200px; /* Ancho fijo para hacerlo más compacto */
+        text-align: center;
+    }
+    
+    .card h4 {
+        margin-top: 0;
+        color: #0056b3;
+        font-size: 1rem; /* Fuente más pequeña */
+    }
+    
+    .big-number {
+        font-size: 1.8rem; /* Número más pequeño */
+        font-weight: bold;
+        color: #212529;
+        margin: 5px 0 0 0;
+    }
+    /* ------------------------------------------------------------------ */
+    
+    .report-results ul, .report-results ol {
+        padding-left: 20px;
+    }
+    
+    .report-results li {
+        margin-bottom: 8px;
+        font-size: 1rem;
+    }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid red;
+        background-color: #ffeaea;
+        border-radius: 4px;
+    }
+
+    /* Estilos de los filtros */
+    .filtro-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      align-items: end;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .campo label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .grupo-fechas {
+      display: flex; 
+      gap: 20px;
+      grid-column: 1 / 3; 
+    }
+
+    .grupo-fechas .campo {
+      flex: 1;
+    }
+
+    .btn-generar {
+      grid-column: 1 / 3;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .btn-generar:hover {
+      background-color: #0056b3;
+    }
+
+    .print-report-btn {
+        padding: 10px 15px;
+        background-color: #28a745; 
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 20px;
+        display: block; 
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .print-report-btn:hover {
+        background-color: #1e7e34;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* NUEVOS ESTILOS DE TABLA DETALLADA (Reporte de Ventas) */
+    /* ------------------------------------------------------------------ */
+    .transaction-detail-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    .transaction-detail-table th, .transaction-detail-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        font-size: 0.9em;
+    }
+    .transaction-detail-table th {
+        background-color: #0056b3;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.8em;
+    }
+    /* Estilos para impresión */
+    @media print {
+        #menu-toggle, #menu-btn, #sidebar, .header, .logo, .user-icon, .mail-icon, footer, .reportes-section, .print-report-btn {
+            display: none !important;
+        }
+        .report-results {
+            margin: 0 !important;
+            padding: 20px !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            page-break-after: auto; 
+        }
+        .report-results * {
+            color: #000 !important; 
+        }
+    }
   </style>
 </head>
 <body>
@@ -30,7 +201,7 @@
     <span></span>
   </label>
 
-  <nav id="sidebar">
+   <nav id="sidebar">
     <ul>
       <li><a href="ini_adm.html">Inicio</a></li>
       <li><a href="emp_adm.html">Empresas</a></li>
@@ -38,26 +209,18 @@
       <li><a href="cat_adm.html">Catalogo</a></li>
       <li><a href="rep_adm.html">Reportes</a></li>
       <li><a href="ayu_adm.html">Ayuda</a></li>
+      <li><a href="log.html">Cerrar Sesión</a></li>
     </ul>
   </nav>
 
   <h1 class="header">Reportes</h1>
 
   
-
-  <a href="login.html">
-    <img src="./img/usuario.png" alt="Usuario" class="user-icon" />
-  </a>
-
-  <img src="./img/mensaje_azul.png" alt="Correo" class="mail-icon" />
-
-  <!-- SECCIÓN DE FILTROS DE REPORTES -->
   <section class="reportes-section">
     <h2>Generar reportes de la empresa</h2>
-    <p>Selecciona el período de tiempo para consultar los reportes.</p>
+    <p>Selecciona el período de tiempo y el tipo de informe.</p>
 
     <form class="filtro-form">
-      <!-- Tipo de período -->
       <div class="campo">
         <label for="tipo-periodo">Tipo de período:</label>
         <select id="tipo-periodo" name="tipo-periodo">
@@ -68,7 +231,15 @@
         </select>
       </div>
 
-      <!-- Rango de fechas -->
+      <div class="campo">
+        <label for="tipo-reporte">Tipo de reporte:</label>
+        <select id="tipo-reporte" name="tipo-reporte">
+          <option value="general">General (Ventas + Productos)</option>
+          <option value="ventas">Ventas (Transacciones)</option>
+          <option value="productos registrados">Productos Registrados</option>
+        </select>
+      </div>
+
       <div class="grupo-fechas" id="grupo-rango">
         <div class="campo">
           <label for="fecha-desde">Desde:</label>
@@ -80,7 +251,6 @@
         </div>
       </div>
 
-      <!-- Filtro por mes -->
       <div class="grupo-fechas oculto" id="grupo-mes">
         <div class="campo">
           <label for="mes-reporte">Mes:</label>
@@ -88,7 +258,6 @@
         </div>
       </div>
 
-      <!-- Filtro por año -->
       <div class="grupo-fechas oculto" id="grupo-anio">
         <div class="campo">
           <label for="anio-reporte">Año:</label>
@@ -96,45 +265,304 @@
         </div>
       </div>
 
-      <!-- Tipo de reporte (opcional) -->
-      <div class="campo">
-        <label for="tipo-reporte">Tipo de reporte:</label>
-        <select id="tipo-reporte" name="tipo-reporte">
-          <option value="general">General</option>
-          <option value="ventas">ventas</option>
-          <option value="gastos">productos registrados</option>
-          <option value="empresas">Empresas registradas</option>
-        </select>
-      </div>
-
       <button type="submit" class="btn-generar">Generar reporte</button>
     </form>
   </section>
+  
+  <div id="report-results" class="report-results">
+    <p style="text-align: center; color: #555;">Selecciona los filtros y haz clic en "Generar reporte".</p>
+  </div>
 
   <footer>
     <p>Maracaibo, Venezuela | Derechos Reservado ©</p>
   </footer>
 
-  <!-- SCRIPT PARA CAMBIAR ENTRE RANGO / MES / AÑO -->
   <script>
     const tipoPeriodo = document.getElementById('tipo-periodo');
     const grupoRango = document.getElementById('grupo-rango');
     const grupoMes = document.getElementById('grupo-mes');
     const grupoAnio = document.getElementById('grupo-anio');
+    const form = document.querySelector('.filtro-form');
+    const reportResultsDiv = document.getElementById('report-results');
 
+    // ⚠️ IMPORTANTE: URL de tu API de Spring Boot
+    const API_BASE_URL = 'http://localhost:8080/api'; 
+    const GLOBAL_HISTORY_KEY = 'transactionHistory_GLOBAL';
+
+    // ---------------------------------------------------------
+    // Funciones de Control de UI
+    // ---------------------------------------------------------
     function actualizarVisibilidadFiltros() {
       const valor = tipoPeriodo.value;
 
-      grupoRango.style.display = (valor === 'rango') ? 'flex' : 'none';
-      grupoMes.style.display = (valor === 'mes') ? 'flex' : 'none';
-      grupoAnio.style.display = (valor === 'anio') ? 'flex' : 'none';
+      // Oculta todos
+      grupoRango.style.display = 'none';
+      grupoMes.style.display = 'none';
+      grupoAnio.style.display = 'none';
+
+      // Muestra el seleccionado
+      if (valor === 'rango') {
+          grupoRango.style.display = 'flex';
+      } else if (valor === 'mes') {
+          grupoMes.style.display = 'flex';
+      } else if (valor === 'anio') {
+          grupoAnio.style.display = 'flex';
+      }
     }
-
-    // Estado inicial
     actualizarVisibilidadFiltros();
-
-    // Cambia cuando el usuario selecciona otro tipo de período
     tipoPeriodo.addEventListener('change', actualizarVisibilidadFiltros);
+
+    // ---------------------------------------------------------
+    // Funciones de Lógica del Reporte
+    // ---------------------------------------------------------
+
+    // 1. Lógica de Filtrado de Transacciones por Fecha
+    const filterTransactionsByDate = (history, startDate, endDate) => {
+        if (!startDate && !endDate) {
+            return history; // No hay filtro de fecha (Todo el histórico)
+        }
+        
+        const start = startDate ? new Date(startDate + 'T00:00:00').getTime() : 0;
+        const end = endDate ? new Date(endDate + 'T23:59:59').getTime() : Date.now();
+
+        return history.filter(transaction => {
+            const transactionDateStr = (transaction.date || '').split('T')[0];
+            const transactionDate = new Date(transactionDateStr + 'T00:00:00').getTime();
+            
+            return transactionDate >= start && transactionDate <= end;
+        });
+    };
+
+    // Helper para generar las filas detalladas de la tabla de ventas
+    const generateDetailedTableRows = (history) => {
+        let rowsHtml = '';
+        
+        history.forEach(transaction => {
+            const numItems = transaction.items.length;
+            
+            transaction.items.forEach((item, index) => {
+                let row = '<tr>';
+                
+                // Las celdas de resumen de la transacción solo se renderizan en el primer item (usando rowspan)
+                if (index === 0) {
+                    row += `<td rowspan="${numItems}" data-label="Fecha">${transaction.date.split('T')[0]}</td>`;
+                    row += `<td rowspan="${numItems}" data-label="Referencia">${transaction.referencia}</td>`;
+                    row += `<td rowspan="${numItems}" data-label="Cédula/RIF">${transaction.cedulaRif}</td>`;
+                    row += `<td rowspan="${numItems}" data-label="Usuario">${transaction.userEmail || 'N/A'}</td>`;
+                    row += `<td rowspan="${numItems}" data-label="Total Transacción" style="font-weight: bold;">${parseFloat(transaction.total).toFixed(2)}$</td>`;
+                }
+                
+                // Celda de Detalle de Items (Muestra Producto, Cantidad y Monto Item)
+                const subtotal = (item.price * item.quantity).toFixed(2);
+                row += `<td data-label="Detalle">${item.name} (${item.quantity} uds. @ ${item.price.toFixed(2)}$/u) = ${subtotal}$</td>`;
+                
+                row += '</tr>';
+                rowsHtml += row;
+            });
+
+            // Añadir separador visual después de cada transacción (fila invisible)
+            rowsHtml += `<tr><td colspan="6" style="height: 5px; background-color: #f0f0f0; border: none;"></td></tr>`;
+        });
+        
+        if (history.length === 0) {
+            return '<tr><td colspan="6" style="text-align: center; padding: 20px;">No hay transacciones en este período.</td></tr>';
+        }
+
+        return rowsHtml;
+    };
+
+
+    
+    // 2. Generar Reporte de Ventas (Transacciones) - DETALLADO
+    const generateSalesReport = (filteredHistory) => {
+        let totalSales = 0;
+        let totalUnitsSold = 0; 
+
+        filteredHistory.sort((a, b) => b.id - a.id); 
+
+        filteredHistory.forEach(transaction => {
+            totalSales += parseFloat(transaction.total);
+            transaction.items.forEach(item => {
+                totalUnitsSold += item.quantity;
+            });
+        });
+
+        const fechaInicio = filteredHistory.length > 0 ? filteredHistory[filteredHistory.length - 1].date.split('T')[0] : 'N/A';
+        const fechaFin = filteredHistory.length > 0 ? filteredHistory[0].date.split('T')[0] : 'N/A';
+        
+        let html = `
+            <h3>💸 Reporte Detallado de Ventas</h3>
+            <p><strong>Período de Análisis:</strong> ${fechaInicio} hasta ${fechaFin}</p>
+            
+            <div class="summary-cards">
+                <div class="card">
+                    <h4>Ingresos Totales ($)</h4>
+                    <p class="big-number">${totalSales.toFixed(2)}$</p>
+                </div>
+                <div class="card">
+                    <h4>Productos Totales Vendidos (uds)</h4>
+                    <p class="big-number">${totalUnitsSold}</p>
+                </div>
+                <div class="card">
+                    <h4>Transacciones Registradas</h4>
+                    <p class="big-number">${filteredHistory.length}</p>
+                </div>
+            </div>
+
+            <h4>Detalle de Transacciones Individuales</h4>
+            <div class="transaction-detail-table-container">
+                <table class="transaction-detail-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Referencia</th>
+                            <th>Cédula/RIF</th>
+                            <th>Usuario (Email)</th>
+                            <th>Total Transacción ($)</th>
+                            <th>Detalle de Items</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${generateDetailedTableRows(filteredHistory)} 
+                    </tbody>
+                </table>
+            </div>
+        `;
+        
+        return html;
+    };
+    
+    // 3. Generar Reporte de Productos Registrados (Muestra solo el nombre del producto)
+    const generateProductReport = async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/productos`); 
+            
+            if (!response.ok) {
+                throw new Error(`Fallo al obtener productos. Código: ${response.status}`);
+            }
+            
+            const products = await response.json();
+            
+            let productListHtml = '';
+            // Lista los nombres de los productos, ordenados alfabéticamente
+            products.sort((a, b) => a.nombre.localeCompare(b.nombre)).forEach(p => {
+                productListHtml += `<li>${p.nombre}</li>`;
+            });
+
+            let html = `
+                <h3>📦 Reporte de Productos Registrados</h3>
+                <div class="summary-cards">
+                    <div class="card">
+                        <h4>Total de Productos Registrados</h4>
+                        <p class="big-number">${products.length}</p>
+                    </div>
+                </div>
+                <h4>Lista de Productos:</h4>
+                <ul style="column-count: 2; list-style-type: disc;">
+                    ${productListHtml || '<li>No hay productos registrados.</li>'}
+                </ul>
+            `;
+            
+            return html;
+
+        } catch (error) {
+            console.error('Error al generar Reporte de Productos:', error);
+            return `<p class="error-message">❌ Error al conectar con la API de productos: ${error.message}. Asegúrate de que el servidor Spring Boot esté corriendo en ${API_BASE_URL}.</p>`;
+        }
+    };
+
+
+    // 4. Manejador del Formulario Principal
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        
+        reportResultsDiv.innerHTML = '<h4>Generando reporte... por favor espere.</h4>';
+
+        const tipoReporte = document.getElementById('tipo-reporte').value;
+        const tipoPeriodo = document.getElementById('tipo-periodo').value;
+        
+        let startDate = null;
+        let endDate = null;
+        let periodDescription = tipoPeriodo;
+
+        // I. Determinar Rango de Fechas
+        if (tipoPeriodo === 'rango') {
+            startDate = document.getElementById('fecha-desde').value;
+            endDate = document.getElementById('fecha-hasta').value;
+            if (!startDate || !endDate) {
+                alert("Por favor, selecciona una fecha de inicio y fin para el rango.");
+                reportResultsDiv.innerHTML = '';
+                return;
+            }
+            periodDescription = `Rango: ${startDate} a ${endDate}`;
+
+        } else if (tipoPeriodo === 'mes') {
+            const mesInput = document.getElementById('mes-reporte').value;
+            if (!mesInput) {
+                alert("Por favor, selecciona un mes.");
+                reportResultsDiv.innerHTML = '';
+                return;
+            }
+            const [year, month] = mesInput.split('-');
+            startDate = `${year}-${month}-01`;
+            const lastDay = new Date(year, month, 0).getDate();
+            endDate = `${year}-${month}-${lastDay}`;
+            periodDescription = `Mes: ${month}/${year}`;
+            
+        } else if (tipoPeriodo === 'anio') {
+            const anioInput = document.getElementById('anio-reporte').value;
+            if (!anioInput) {
+                alert("Por favor, selecciona un año.");
+                reportResultsDiv.innerHTML = '';
+                return;
+            }
+            startDate = `${anioInput}-01-01`;
+            endDate = `${anioInput}-12-31`;
+            periodDescription = `Año: ${anioInput}`;
+
+        } 
+        
+
+        // II. Ejecutar Reportes
+        let reportHtml = '';
+        
+        if (tipoReporte === 'ventas' || tipoReporte === 'general') {
+            // A. Reporte de Ventas (Transacciones)
+            const historyString = localStorage.getItem(GLOBAL_HISTORY_KEY);
+            const globalHistory = historyString ? JSON.parse(historyString) : [];
+            
+            const filteredHistory = filterTransactionsByDate(globalHistory, startDate, endDate);
+            
+            if (tipoReporte === 'general') {
+                reportHtml += `<h2>Reporte General (${periodDescription})</h2>`;
+            } else {
+                reportHtml += `<h2>Reporte de Ventas (${periodDescription})</h2>`;
+            }
+            reportHtml += generateSalesReport(filteredHistory);
+            
+        } 
+        
+        if (tipoReporte === 'productos registrados' || tipoReporte === 'general') {
+            // B. Reporte de Productos Registrados
+            if (reportHtml) { 
+                reportHtml += '<hr style="margin: 30px 0; border-top: 2px solid #ccc;">';
+            } else {
+                reportHtml += `<h2>Reporte de Productos Registrados</h2>`;
+            }
+            
+            reportHtml += await generateProductReport();
+            
+        }
+
+        // III. Construir HTML Final (Añadir botón de imprimir)
+        if (reportHtml) {
+            // Se añade el botón de impresión antes del contenido del reporte
+            const printButtonHtml = '<button class="print-report-btn" onclick="window.print()">Generar PDF / Imprimir Reporte</button>';
+            reportResultsDiv.innerHTML = printButtonHtml + reportHtml;
+        } else {
+            reportResultsDiv.innerHTML = '<p class="error-message">Selecciona un tipo de reporte válido.</p>';
+        }
+    });
   </script>
 
 </body>

@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Elementos para la Búsqueda (solo se mantiene searchInput)
     const searchInput = document.querySelector('.search-input');
-    // 🛑 brandFilter y categoryFilter han sido eliminados de aquí
     
     // Obtener las plantillas (templates)
     const detailTemplate = document.getElementById('product-detail-template');
@@ -23,20 +22,35 @@ document.addEventListener('DOMContentLoaded', () => {
     let shoppingCart = [];
     let allProductsData = []; 
 
+    // ------------------------------------------------------------------
+    // NUEVA FUNCIÓN: Obtener la clave única del carrito por usuario
+    // ------------------------------------------------------------------
+    const getCartStorageKey = () => {
+        const userEmail = localStorage.getItem('currentUserEmail');
+        if (!userEmail) {
+            console.warn('Advertencia: No se encontró el correo del usuario. Usando clave genérica.');
+            return 'wayneCorpCart_GUEST'; 
+        }
+        // Devuelve una clave única basada en el correo
+        return `wayneCorpCart_${userEmail}`;
+    };
+
     // --- Funciones Auxiliares del Modal ---
     const showContainer = () => { prodContainer.style.display = 'flex'; };
     const hideContainer = () => { prodContainer.style.display = 'none'; modalContentContainer.innerHTML = ''; };
 
     // ------------------------------------------------------------------
-    // Funciones de Persistencia (Local Storage)
+    // Funciones de Persistencia (Local Storage) - MODIFICADAS
     // ------------------------------------------------------------------
 
     const saveCartToStorage = () => {
-        localStorage.setItem('wayneCorpCart', JSON.stringify(shoppingCart));
+        const storageKey = getCartStorageKey(); // <-- USA CLAVE ÚNICA
+        localStorage.setItem(storageKey, JSON.stringify(shoppingCart));
     };
 
     const loadCartFromStorage = () => {
-        const storedCart = localStorage.getItem('wayneCorpCart');
+        const storageKey = getCartStorageKey(); // <-- USA CLAVE ÚNICA
+        const storedCart = localStorage.getItem(storageKey);
         if (storedCart) {
             shoppingCart = JSON.parse(storedCart);
         }
@@ -44,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ------------------------------------------------------------------
-    // Funciones de Carrito de Compras (SIN MODIFICACIONES)
+    // Funciones de Carrito de Compras
     // ------------------------------------------------------------------
     
     const updateCartCount = () => {
@@ -324,7 +338,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Conectar el input de búsqueda con la función que llama al backend
     searchInput.addEventListener('input', fetchAndRenderProducts);
-    // 🛑 Los eventos de brandFilter y categoryFilter han sido eliminados.
     
     // Evento para abrir el carrito
     cartIcon.addEventListener('click', loadCart);
@@ -338,8 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
             hideContainer();
         }
     });
-
-    // 🛑 La función checkUrlForFilter() fue eliminada ya que no hay filtros que aplicar desde URL.
 
     // Inicialización: Cargar el carrito guardado y los productos al cargar la página.
     loadCartFromStorage();
